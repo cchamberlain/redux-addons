@@ -24,6 +24,7 @@ export const createStartDispatcher = context => dispatcher => configureDispatche
   const { myDispatcher } = dispatcher
   myDispatcher.execute()
 })
+```
 
 
 ##### redux-addons/actions.js

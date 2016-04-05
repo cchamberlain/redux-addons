@@ -81,13 +81,10 @@
 export const createStartDispatcher = context =&gt; dispatcher =&gt; configureDispatcherAction(context)(dispatcher)(dispatcher =&gt; {
   const { myDispatcher } = dispatcher
   myDispatcher.execute()
-})
-
-
-##### redux-addons/actions.js
-
-```js
-/**
+})</code>
+</code></pre>
+<h5 id="redux-addons-actions-js">redux-addons/actions.js</h5>
+<pre><code class="lang-js"><code class="source-code prettyprint">/**
  * Configures a Flux Standard Action creator injected with dispatch, getState and the libraries context.
  * @example &lt;caption&gt;Exports a Flux Standard Action creator that takes a handler injected with dispatch, getState, and the libraries context.
  * export const createSomeUserAction = configureDispatcherAction((dispatch, getState, context) =&gt; dispatcher.action.execute(&apos;create-some-user-action&apos;))
