@@ -66,8 +66,48 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="redux-webrtc">redux-webrtc</h1>
-<p>WebRTC client synchronization of redux state (WIP).</p>
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><p><strong>redux for third-party pluggable libraries</strong></p>
+<p>There are unique challenges to redux library development. This package aims to orchestrate configuration to both the library creator and consumer and allow the resultant package to be easily strapped into an existing redux store and reducers.</p>
+<p><strong>Disclaimer: This library is in early development. It will be changing rapidly and is not ready for production use.</strong></p>
+<p><code>npm i -S redux-addons</code></p>
+<p>Will install addons to:</p>
+<p><code>ES5   =&gt; &apos;redux-middleware/lib&apos;</code></p>
+<p><code>ES6+  =&gt; &apos;redux-middleware/src/lib&apos;</code></p>
+<h2 id="usage">Usage</h2>
+<h5 id="my-library-actions-js">my-library/actions.js</h5>
+<pre><code class="lang-js"><code class="source-code prettyprint">import { configureAction, configureDispatcherAction, actionDefinition } from &apos;redux-addons/actions&apos;
+
+/** Creates an action that starts idle monitor when dispatched */
+export const createStartDispatcher = context =&gt; dispatcher =&gt; configureDispatcherAction(context)(dispatcher)(dispatcher =&gt; {
+  const { myDispatcher } = dispatcher
+  myDispatcher.execute()
+})
+
+
+##### redux-addons/actions.js
+
+```js
+/**
+ * Configures a Flux Standard Action creator injected with dispatch, getState and the libraries context.
+ * @example &lt;caption&gt;Exports a Flux Standard Action creator that takes a handler injected with dispatch, getState, and the libraries context.
+ * export const createSomeUserAction = configureDispatcherAction((dispatch, getState, context) =&gt; dispatcher.action.execute(&apos;create-some-user-action&apos;))
+ * @param  {function} handler: (dispatch, getState, context) =&gt; { ... }
+ */
+export const configureAction = handler =&gt; context =&gt; (dispatch, getState) =&gt; handler(dispatch, getState, context)
+
+/**
+ * Configures a Flux Standard Action creator injected with the libraries dispatcher and context.
+ * @example &lt;caption&gt;Exports a Flux Standard Action creator that takes a handler injected with the libraries dispatcher and context.
+ * export const createSomeUserAction = configureDispatcherAction((dispatcher, context) =&gt; dispatcher.action.execute(&apos;create-some-user-action&apos;))
+ * @param  {function} handler: (context, dispatcher) =&gt; { ... }
+ */
+//export const configureDispatcherAction = (handler, dispatcher) =&gt; context =&gt; (dispatch, getState) =&gt; handler(dispatcher)
+export const configureDispatcherAction = context =&gt; dispatcher =&gt; handler =&gt; (dispatch, getState) =&gt; handler(dispatcher(dispatch, getState), context)
+
+
+/** Allows the user of lib to define custom redux actions that will be injected with libraries context when action is dispatched */
+export const actionDefinition = (actionName, actionContext) =&gt; ([ actionName, actionContext ])</code>
+</code></pre>
 </div>
 </div>
 
