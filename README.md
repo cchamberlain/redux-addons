@@ -1,3 +1,5 @@
+# redux-addons
+
 **redux for third-party pluggable libraries**
 
 There are unique challenges to redux library development. This package aims to orchestrate configuration to both the library creator and consumer and allow the resultant package to be easily strapped into an existing redux store and reducers.
