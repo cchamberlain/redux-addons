@@ -1,14 +1,14 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 1597,
+  "end": 1785,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 21,
+      "line": 25,
       "column": 0
     }
   },
@@ -333,26 +333,6 @@
               602,
               1052
             ]
-          },
-          {
-            "type": "CommentLine",
-            "value": "export const configureActionDispatcher = context => dispatcher => handler => (dispatch, getState) => handler(dispatcher(dispatch, getState), context)",
-            "start": 1054,
-            "end": 1205,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 151
-              }
-            },
-            "range": [
-              1054,
-              1205
-            ]
           }
         ]
       },
@@ -400,83 +380,63 @@
             602,
             1052
           ]
-        },
-        {
-          "type": "CommentLine",
-          "value": "export const configureActionDispatcher = context => dispatcher => handler => (dispatch, getState) => handler(dispatcher(dispatch, getState), context)",
-          "start": 1054,
-          "end": 1205,
-          "loc": {
-            "start": {
-              "line": 15,
-              "column": 0
-            },
-            "end": {
-              "line": 15,
-              "column": 151
-            }
-          },
-          "range": [
-            1054,
-            1205
-          ]
         }
       ]
     },
     {
       "type": "ExportNamedDeclaration",
-      "start": 1207,
-      "end": 1356,
+      "start": 1054,
+      "end": 1203,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 15,
           "column": 0
         },
         "end": {
-          "line": 16,
+          "line": 15,
           "column": 149
         }
       },
       "declaration": {
         "type": "VariableDeclaration",
-        "start": 1214,
-        "end": 1356,
+        "start": 1061,
+        "end": 1203,
         "loc": {
           "start": {
-            "line": 16,
+            "line": 15,
             "column": 7
           },
           "end": {
-            "line": 16,
+            "line": 15,
             "column": 149
           }
         },
         "declarations": [
           {
             "type": "VariableDeclarator",
-            "start": 1220,
-            "end": 1356,
+            "start": 1067,
+            "end": 1203,
             "loc": {
               "start": {
-                "line": 16,
+                "line": 15,
                 "column": 13
               },
               "end": {
-                "line": 16,
+                "line": 15,
                 "column": 149
               }
             },
             "id": {
               "type": "Identifier",
-              "start": 1220,
-              "end": 1245,
+              "start": 1067,
+              "end": 1092,
               "loc": {
                 "start": {
-                  "line": 16,
+                  "line": 15,
                   "column": 13
                 },
                 "end": {
-                  "line": 16,
+                  "line": 15,
                   "column": 38
                 }
               },
@@ -485,15 +445,15 @@
             },
             "init": {
               "type": "ArrowFunctionExpression",
-              "start": 1248,
-              "end": 1356,
+              "start": 1095,
+              "end": 1203,
               "loc": {
                 "start": {
-                  "line": 16,
+                  "line": 15,
                   "column": 41
                 },
                 "end": {
-                  "line": 16,
+                  "line": 15,
                   "column": 149
                 }
               },
@@ -504,15 +464,15 @@
               "params": [
                 {
                   "type": "Identifier",
-                  "start": 1248,
-                  "end": 1255,
+                  "start": 1095,
+                  "end": 1102,
                   "loc": {
                     "start": {
-                      "line": 16,
+                      "line": 15,
                       "column": 41
                     },
                     "end": {
-                      "line": 16,
+                      "line": 15,
                       "column": 48
                     }
                   },
@@ -521,15 +481,15 @@
               ],
               "body": {
                 "type": "ArrowFunctionExpression",
-                "start": 1259,
-                "end": 1356,
+                "start": 1106,
+                "end": 1203,
                 "loc": {
                   "start": {
-                    "line": 16,
+                    "line": 15,
                     "column": 52
                   },
                   "end": {
-                    "line": 16,
+                    "line": 15,
                     "column": 149
                   }
                 },
@@ -540,15 +500,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 1259,
-                    "end": 1269,
+                    "start": 1106,
+                    "end": 1116,
                     "loc": {
                       "start": {
-                        "line": 16,
+                        "line": 15,
                         "column": 52
                       },
                       "end": {
-                        "line": 16,
+                        "line": 15,
                         "column": 62
                       }
                     },
@@ -557,15 +517,15 @@
                 ],
                 "body": {
                   "type": "ArrowFunctionExpression",
-                  "start": 1273,
-                  "end": 1356,
+                  "start": 1120,
+                  "end": 1203,
                   "loc": {
                     "start": {
-                      "line": 16,
+                      "line": 15,
                       "column": 66
                     },
                     "end": {
-                      "line": 16,
+                      "line": 15,
                       "column": 149
                     }
                   },
@@ -576,15 +536,15 @@
                   "params": [
                     {
                       "type": "Identifier",
-                      "start": 1273,
-                      "end": 1280,
+                      "start": 1120,
+                      "end": 1127,
                       "loc": {
                         "start": {
-                          "line": 16,
+                          "line": 15,
                           "column": 66
                         },
                         "end": {
-                          "line": 16,
+                          "line": 15,
                           "column": 73
                         }
                       },
@@ -593,15 +553,15 @@
                   ],
                   "body": {
                     "type": "ArrowFunctionExpression",
-                    "start": 1284,
-                    "end": 1356,
+                    "start": 1131,
+                    "end": 1203,
                     "loc": {
                       "start": {
-                        "line": 16,
+                        "line": 15,
                         "column": 77
                       },
                       "end": {
-                        "line": 16,
+                        "line": 15,
                         "column": 149
                       }
                     },
@@ -612,15 +572,15 @@
                     "params": [
                       {
                         "type": "Identifier",
-                        "start": 1285,
-                        "end": 1293,
+                        "start": 1132,
+                        "end": 1140,
                         "loc": {
                           "start": {
-                            "line": 16,
+                            "line": 15,
                             "column": 78
                           },
                           "end": {
-                            "line": 16,
+                            "line": 15,
                             "column": 86
                           }
                         },
@@ -628,15 +588,15 @@
                       },
                       {
                         "type": "Identifier",
-                        "start": 1295,
-                        "end": 1303,
+                        "start": 1142,
+                        "end": 1150,
                         "loc": {
                           "start": {
-                            "line": 16,
+                            "line": 15,
                             "column": 88
                           },
                           "end": {
-                            "line": 16,
+                            "line": 15,
                             "column": 96
                           }
                         },
@@ -645,29 +605,29 @@
                     ],
                     "body": {
                       "type": "CallExpression",
-                      "start": 1308,
-                      "end": 1356,
+                      "start": 1155,
+                      "end": 1203,
                       "loc": {
                         "start": {
-                          "line": 16,
+                          "line": 15,
                           "column": 101
                         },
                         "end": {
-                          "line": 16,
+                          "line": 15,
                           "column": 149
                         }
                       },
                       "callee": {
                         "type": "Identifier",
-                        "start": 1308,
-                        "end": 1315,
+                        "start": 1155,
+                        "end": 1162,
                         "loc": {
                           "start": {
-                            "line": 16,
+                            "line": 15,
                             "column": 101
                           },
                           "end": {
-                            "line": 16,
+                            "line": 15,
                             "column": 108
                           }
                         },
@@ -676,29 +636,29 @@
                       "arguments": [
                         {
                           "type": "CallExpression",
-                          "start": 1316,
-                          "end": 1346,
+                          "start": 1163,
+                          "end": 1193,
                           "loc": {
                             "start": {
-                              "line": 16,
+                              "line": 15,
                               "column": 109
                             },
                             "end": {
-                              "line": 16,
+                              "line": 15,
                               "column": 139
                             }
                           },
                           "callee": {
                             "type": "Identifier",
-                            "start": 1316,
-                            "end": 1326,
+                            "start": 1163,
+                            "end": 1173,
                             "loc": {
                               "start": {
-                                "line": 16,
+                                "line": 15,
                                 "column": 109
                               },
                               "end": {
-                                "line": 16,
+                                "line": 15,
                                 "column": 119
                               }
                             },
@@ -707,15 +667,15 @@
                           "arguments": [
                             {
                               "type": "Identifier",
-                              "start": 1327,
-                              "end": 1335,
+                              "start": 1174,
+                              "end": 1182,
                               "loc": {
                                 "start": {
-                                  "line": 16,
+                                  "line": 15,
                                   "column": 120
                                 },
                                 "end": {
-                                  "line": 16,
+                                  "line": 15,
                                   "column": 128
                                 }
                               },
@@ -723,15 +683,15 @@
                             },
                             {
                               "type": "Identifier",
-                              "start": 1337,
-                              "end": 1345,
+                              "start": 1184,
+                              "end": 1192,
                               "loc": {
                                 "start": {
-                                  "line": 16,
+                                  "line": 15,
                                   "column": 130
                                 },
                                 "end": {
-                                  "line": 16,
+                                  "line": 15,
                                   "column": 138
                                 }
                               },
@@ -741,15 +701,15 @@
                         },
                         {
                           "type": "Identifier",
-                          "start": 1348,
-                          "end": 1355,
+                          "start": 1195,
+                          "end": 1202,
                           "loc": {
                             "start": {
-                              "line": 16,
+                              "line": 15,
                               "column": 141
                             },
                             "end": {
-                              "line": 16,
+                              "line": 15,
                               "column": 148
                             }
                           },
@@ -791,47 +751,27 @@
               602,
               1052
             ]
-          },
-          {
-            "type": "CommentLine",
-            "value": "export const configureActionDispatcher = context => dispatcher => handler => (dispatch, getState) => handler(dispatcher(dispatch, getState), context)",
-            "start": 1054,
-            "end": 1205,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 151
-              }
-            },
-            "range": [
-              1054,
-              1205
-            ]
           }
         ],
         "trailingComments": [
           {
             "type": "Block",
-            "value": "* Allows the user of lib to define custom redux actions that will be injected with libraries context when action is dispatched ",
-            "start": 1362,
-            "end": 1493,
+            "value": "* Allows the user of lib to define custom redux actions that an action creator retrieved from at a later time via a type map. ",
+            "start": 1209,
+            "end": 1339,
             "loc": {
               "start": {
-                "line": 19,
+                "line": 18,
                 "column": 0
               },
               "end": {
-                "line": 19,
-                "column": 131
+                "line": 18,
+                "column": 130
               }
             },
             "range": [
-              1362,
-              1493
+              1209,
+              1339
             ]
           }
         ]
@@ -858,123 +798,103 @@
             602,
             1052
           ]
-        },
-        {
-          "type": "CommentLine",
-          "value": "export const configureActionDispatcher = context => dispatcher => handler => (dispatch, getState) => handler(dispatcher(dispatch, getState), context)",
-          "start": 1054,
-          "end": 1205,
-          "loc": {
-            "start": {
-              "line": 15,
-              "column": 0
-            },
-            "end": {
-              "line": 15,
-              "column": 151
-            }
-          },
-          "range": [
-            1054,
-            1205
-          ]
         }
       ],
       "trailingComments": [
         {
           "type": "Block",
-          "value": "* Allows the user of lib to define custom redux actions that will be injected with libraries context when action is dispatched ",
-          "start": 1362,
-          "end": 1493,
+          "value": "* Allows the user of lib to define custom redux actions that an action creator retrieved from at a later time via a type map. ",
+          "start": 1209,
+          "end": 1339,
           "loc": {
             "start": {
-              "line": 19,
+              "line": 18,
               "column": 0
             },
             "end": {
-              "line": 19,
-              "column": 131
+              "line": 18,
+              "column": 130
             }
           },
           "range": [
-            1362,
-            1493
+            1209,
+            1339
           ]
         }
       ]
     },
     {
       "type": "ExportNamedDeclaration",
-      "start": 1495,
-      "end": 1595,
+      "start": 1341,
+      "end": 1514,
       "loc": {
         "start": {
-          "line": 20,
+          "line": 19,
           "column": 0
         },
         "end": {
-          "line": 20,
-          "column": 100
+          "line": 19,
+          "column": 173
         }
       },
       "declaration": {
         "type": "VariableDeclaration",
-        "start": 1502,
-        "end": 1595,
+        "start": 1348,
+        "end": 1514,
         "loc": {
           "start": {
-            "line": 20,
+            "line": 19,
             "column": 7
           },
           "end": {
-            "line": 20,
-            "column": 100
+            "line": 19,
+            "column": 173
           }
         },
         "declarations": [
           {
             "type": "VariableDeclarator",
-            "start": 1508,
-            "end": 1595,
+            "start": 1354,
+            "end": 1514,
             "loc": {
               "start": {
-                "line": 20,
+                "line": 19,
                 "column": 13
               },
               "end": {
-                "line": 20,
-                "column": 100
+                "line": 19,
+                "column": 173
               }
             },
             "id": {
               "type": "Identifier",
-              "start": 1508,
-              "end": 1524,
+              "start": 1354,
+              "end": 1375,
               "loc": {
                 "start": {
-                  "line": 20,
+                  "line": 19,
                   "column": 13
                 },
                 "end": {
-                  "line": 20,
-                  "column": 29
+                  "line": 19,
+                  "column": 34
                 }
               },
-              "name": "actionDefinition",
+              "name": "createActionBlueprint",
               "leadingComments": null
             },
             "init": {
               "type": "ArrowFunctionExpression",
-              "start": 1527,
-              "end": 1595,
+              "start": 1378,
+              "end": 1514,
               "loc": {
                 "start": {
-                  "line": 20,
-                  "column": 32
+                  "line": 19,
+                  "column": 37
                 },
                 "end": {
-                  "line": 20,
-                  "column": 100
+                  "line": 19,
+                  "column": 173
                 }
               },
               "id": null,
@@ -984,86 +904,203 @@
               "params": [
                 {
                   "type": "Identifier",
-                  "start": 1528,
-                  "end": 1538,
+                  "start": 1379,
+                  "end": 1389,
                   "loc": {
                     "start": {
-                      "line": 20,
-                      "column": 33
+                      "line": 19,
+                      "column": 38
                     },
                     "end": {
-                      "line": 20,
-                      "column": 43
+                      "line": 19,
+                      "column": 48
                     }
                   },
                   "name": "actionName"
                 },
                 {
                   "type": "Identifier",
-                  "start": 1540,
-                  "end": 1556,
+                  "start": 1391,
+                  "end": 1405,
                   "loc": {
                     "start": {
-                      "line": 20,
-                      "column": 45
+                      "line": 19,
+                      "column": 50
                     },
                     "end": {
-                      "line": 20,
-                      "column": 61
+                      "line": 19,
+                      "column": 64
                     }
                   },
-                  "name": "actionDefinition"
+                  "name": "payloadCreator"
+                },
+                {
+                  "type": "Identifier",
+                  "start": 1407,
+                  "end": 1418,
+                  "loc": {
+                    "start": {
+                      "line": 19,
+                      "column": 66
+                    },
+                    "end": {
+                      "line": 19,
+                      "column": 77
+                    }
+                  },
+                  "name": "metaCreator"
                 }
               ],
               "body": {
-                "type": "ArrayExpression",
-                "start": 1562,
-                "end": 1594,
+                "type": "ArrowFunctionExpression",
+                "start": 1423,
+                "end": 1514,
                 "loc": {
                   "start": {
-                    "line": 20,
-                    "column": 67
+                    "line": 19,
+                    "column": 82
                   },
                   "end": {
-                    "line": 20,
-                    "column": 99
+                    "line": 19,
+                    "column": 173
                   }
                 },
-                "elements": [
+                "id": null,
+                "generator": false,
+                "expression": true,
+                "async": false,
+                "params": [
                   {
                     "type": "Identifier",
-                    "start": 1564,
-                    "end": 1574,
+                    "start": 1423,
+                    "end": 1439,
                     "loc": {
                       "start": {
-                        "line": 20,
-                        "column": 69
+                        "line": 19,
+                        "column": 82
                       },
                       "end": {
-                        "line": 20,
-                        "column": 79
+                        "line": 19,
+                        "column": 98
                       }
                     },
-                    "name": "actionName"
-                  },
-                  {
-                    "type": "Identifier",
-                    "start": 1576,
-                    "end": 1592,
-                    "loc": {
-                      "start": {
-                        "line": 20,
-                        "column": 81
-                      },
-                      "end": {
-                        "line": 20,
-                        "column": 97
-                      }
-                    },
-                    "name": "actionDefinition"
+                    "name": "createActionType"
                   }
                 ],
-                "parenthesizedExpression": true
+                "body": {
+                  "type": "CallExpression",
+                  "start": 1443,
+                  "end": 1514,
+                  "loc": {
+                    "start": {
+                      "line": 19,
+                      "column": 102
+                    },
+                    "end": {
+                      "line": 19,
+                      "column": 173
+                    }
+                  },
+                  "callee": {
+                    "type": "Identifier",
+                    "start": 1443,
+                    "end": 1455,
+                    "loc": {
+                      "start": {
+                        "line": 19,
+                        "column": 102
+                      },
+                      "end": {
+                        "line": 19,
+                        "column": 114
+                      }
+                    },
+                    "name": "createAction"
+                  },
+                  "arguments": [
+                    {
+                      "type": "CallExpression",
+                      "start": 1456,
+                      "end": 1484,
+                      "loc": {
+                        "start": {
+                          "line": 19,
+                          "column": 115
+                        },
+                        "end": {
+                          "line": 19,
+                          "column": 143
+                        }
+                      },
+                      "callee": {
+                        "type": "Identifier",
+                        "start": 1456,
+                        "end": 1472,
+                        "loc": {
+                          "start": {
+                            "line": 19,
+                            "column": 115
+                          },
+                          "end": {
+                            "line": 19,
+                            "column": 131
+                          }
+                        },
+                        "name": "createActionType"
+                      },
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "start": 1473,
+                          "end": 1483,
+                          "loc": {
+                            "start": {
+                              "line": 19,
+                              "column": 132
+                            },
+                            "end": {
+                              "line": 19,
+                              "column": 142
+                            }
+                          },
+                          "name": "actionName"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Identifier",
+                      "start": 1486,
+                      "end": 1500,
+                      "loc": {
+                        "start": {
+                          "line": 19,
+                          "column": 145
+                        },
+                        "end": {
+                          "line": 19,
+                          "column": 159
+                        }
+                      },
+                      "name": "payloadCreator"
+                    },
+                    {
+                      "type": "Identifier",
+                      "start": 1502,
+                      "end": 1513,
+                      "loc": {
+                        "start": {
+                          "line": 19,
+                          "column": 161
+                        },
+                        "end": {
+                          "line": 19,
+                          "column": 172
+                        }
+                      },
+                      "name": "metaCreator"
+                    }
+                  ]
+                }
               }
             },
             "leadingComments": null
@@ -1073,22 +1110,22 @@
         "leadingComments": [
           {
             "type": "Block",
-            "value": "* Allows the user of lib to define custom redux actions that will be injected with libraries context when action is dispatched ",
-            "start": 1362,
-            "end": 1493,
+            "value": "* Allows the user of lib to define custom redux actions that an action creator retrieved from at a later time via a type map. ",
+            "start": 1209,
+            "end": 1339,
             "loc": {
               "start": {
-                "line": 19,
+                "line": 18,
                 "column": 0
               },
               "end": {
-                "line": 19,
-                "column": 131
+                "line": 18,
+                "column": 130
               }
             },
             "range": [
-              1362,
-              1493
+              1209,
+              1339
             ]
           }
         ],
@@ -1099,22 +1136,399 @@
       "leadingComments": [
         {
           "type": "Block",
-          "value": "* Allows the user of lib to define custom redux actions that will be injected with libraries context when action is dispatched ",
-          "start": 1362,
-          "end": 1493,
+          "value": "* Allows the user of lib to define custom redux actions that an action creator retrieved from at a later time via a type map. ",
+          "start": 1209,
+          "end": 1339,
           "loc": {
             "start": {
-              "line": 19,
+              "line": 18,
               "column": 0
             },
             "end": {
-              "line": 19,
-              "column": 131
+              "line": 18,
+              "column": 130
             }
           },
           "range": [
-            1362,
-            1493
+            1209,
+            1339
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ExportNamedDeclaration",
+      "start": 1516,
+      "end": 1667,
+      "loc": {
+        "start": {
+          "line": 20,
+          "column": 0
+        },
+        "end": {
+          "line": 20,
+          "column": 151
+        }
+      },
+      "declaration": {
+        "type": "VariableDeclaration",
+        "start": 1523,
+        "end": 1667,
+        "loc": {
+          "start": {
+            "line": 20,
+            "column": 7
+          },
+          "end": {
+            "line": 20,
+            "column": 151
+          }
+        },
+        "declarations": [
+          {
+            "type": "VariableDeclarator",
+            "start": 1529,
+            "end": 1667,
+            "loc": {
+              "start": {
+                "line": 20,
+                "column": 13
+              },
+              "end": {
+                "line": 20,
+                "column": 151
+              }
+            },
+            "id": {
+              "type": "Identifier",
+              "start": 1529,
+              "end": 1557,
+              "loc": {
+                "start": {
+                  "line": 20,
+                  "column": 13
+                },
+                "end": {
+                  "line": 20,
+                  "column": 41
+                }
+              },
+              "name": "createDelayedActionBlueprint"
+            },
+            "init": {
+              "type": "ArrowFunctionExpression",
+              "start": 1560,
+              "end": 1667,
+              "loc": {
+                "start": {
+                  "line": 20,
+                  "column": 44
+                },
+                "end": {
+                  "line": 20,
+                  "column": 151
+                }
+              },
+              "id": null,
+              "generator": false,
+              "expression": true,
+              "async": false,
+              "params": [
+                {
+                  "type": "Identifier",
+                  "start": 1561,
+                  "end": 1571,
+                  "loc": {
+                    "start": {
+                      "line": 20,
+                      "column": 45
+                    },
+                    "end": {
+                      "line": 20,
+                      "column": 55
+                    }
+                  },
+                  "name": "actionName"
+                },
+                {
+                  "type": "Identifier",
+                  "start": 1573,
+                  "end": 1587,
+                  "loc": {
+                    "start": {
+                      "line": 20,
+                      "column": 57
+                    },
+                    "end": {
+                      "line": 20,
+                      "column": 71
+                    }
+                  },
+                  "name": "payloadCreator"
+                },
+                {
+                  "type": "Identifier",
+                  "start": 1589,
+                  "end": 1594,
+                  "loc": {
+                    "start": {
+                      "line": 20,
+                      "column": 73
+                    },
+                    "end": {
+                      "line": 20,
+                      "column": 78
+                    }
+                  },
+                  "name": "delay"
+                }
+              ],
+              "body": {
+                "type": "CallExpression",
+                "start": 1599,
+                "end": 1667,
+                "loc": {
+                  "start": {
+                    "line": 20,
+                    "column": 83
+                  },
+                  "end": {
+                    "line": 20,
+                    "column": 151
+                  }
+                },
+                "callee": {
+                  "type": "Identifier",
+                  "start": 1599,
+                  "end": 1620,
+                  "loc": {
+                    "start": {
+                      "line": 20,
+                      "column": 83
+                    },
+                    "end": {
+                      "line": 20,
+                      "column": 104
+                    }
+                  },
+                  "name": "createActionBlueprint"
+                },
+                "arguments": [
+                  {
+                    "type": "Identifier",
+                    "start": 1621,
+                    "end": 1631,
+                    "loc": {
+                      "start": {
+                        "line": 20,
+                        "column": 105
+                      },
+                      "end": {
+                        "line": 20,
+                        "column": 115
+                      }
+                    },
+                    "name": "actionName"
+                  },
+                  {
+                    "type": "Identifier",
+                    "start": 1633,
+                    "end": 1647,
+                    "loc": {
+                      "start": {
+                        "line": 20,
+                        "column": 117
+                      },
+                      "end": {
+                        "line": 20,
+                        "column": 131
+                      }
+                    },
+                    "name": "payloadCreator"
+                  },
+                  {
+                    "type": "ArrowFunctionExpression",
+                    "start": 1649,
+                    "end": 1666,
+                    "loc": {
+                      "start": {
+                        "line": 20,
+                        "column": 133
+                      },
+                      "end": {
+                        "line": 20,
+                        "column": 150
+                      }
+                    },
+                    "id": null,
+                    "generator": false,
+                    "expression": true,
+                    "async": false,
+                    "params": [],
+                    "body": {
+                      "type": "ObjectExpression",
+                      "start": 1656,
+                      "end": 1665,
+                      "loc": {
+                        "start": {
+                          "line": 20,
+                          "column": 140
+                        },
+                        "end": {
+                          "line": 20,
+                          "column": 149
+                        }
+                      },
+                      "properties": [
+                        {
+                          "type": "Property",
+                          "start": 1658,
+                          "end": 1663,
+                          "loc": {
+                            "start": {
+                              "line": 20,
+                              "column": 142
+                            },
+                            "end": {
+                              "line": 20,
+                              "column": 147
+                            }
+                          },
+                          "method": false,
+                          "shorthand": true,
+                          "computed": false,
+                          "key": {
+                            "type": "Identifier",
+                            "start": 1658,
+                            "end": 1663,
+                            "loc": {
+                              "start": {
+                                "line": 20,
+                                "column": 142
+                              },
+                              "end": {
+                                "line": 20,
+                                "column": 147
+                              }
+                            },
+                            "name": "delay"
+                          },
+                          "kind": "init",
+                          "value": {
+                            "type": "Identifier",
+                            "start": 1658,
+                            "end": 1663,
+                            "loc": {
+                              "start": {
+                                "line": 20,
+                                "column": 142
+                              },
+                              "end": {
+                                "line": 20,
+                                "column": 147
+                              }
+                            },
+                            "name": "delay"
+                          }
+                        }
+                      ],
+                      "parenthesizedExpression": true
+                    }
+                  }
+                ],
+                "trailingComments": null
+              },
+              "trailingComments": null
+            },
+            "trailingComments": null
+          }
+        ],
+        "kind": "const",
+        "trailingComments": [
+          {
+            "type": "CommentLine",
+            "value": " actionBlueprint = typeMap => actionCreator",
+            "start": 1671,
+            "end": 1716,
+            "loc": {
+              "start": {
+                "line": 22,
+                "column": 0
+              },
+              "end": {
+                "line": 22,
+                "column": 45
+              }
+            },
+            "range": [
+              1671,
+              1716
+            ]
+          },
+          {
+            "type": "CommentLine",
+            "value": " actionDefinition === { type, payloadCreactor, ?metaCreator }",
+            "start": 1720,
+            "end": 1783,
+            "loc": {
+              "start": {
+                "line": 24,
+                "column": 0
+              },
+              "end": {
+                "line": 24,
+                "column": 63
+              }
+            },
+            "range": [
+              1720,
+              1783
+            ]
+          }
+        ],
+        "leadingComments": []
+      },
+      "specifiers": [],
+      "source": null,
+      "trailingComments": [
+        {
+          "type": "CommentLine",
+          "value": " actionBlueprint = typeMap => actionCreator",
+          "start": 1671,
+          "end": 1716,
+          "loc": {
+            "start": {
+              "line": 22,
+              "column": 0
+            },
+            "end": {
+              "line": 22,
+              "column": 45
+            }
+          },
+          "range": [
+            1671,
+            1716
+          ]
+        },
+        {
+          "type": "CommentLine",
+          "value": " actionDefinition === { type, payloadCreactor, ?metaCreator }",
+          "start": 1720,
+          "end": 1783,
+          "loc": {
+            "start": {
+              "line": 24,
+              "column": 0
+            },
+            "end": {
+              "line": 24,
+              "column": 63
+            }
+          },
+          "range": [
+            1720,
+            1783
           ]
         }
       ]

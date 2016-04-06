@@ -36,9 +36,10 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-configureDispatcher">configureDispatcher</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-configure">configure</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-configureReducer">configureReducer</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-actionDefinition">actionDefinition</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureAction">configureAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureActionDispatcher">configureActionDispatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createActionBlueprint">createActionBlueprint</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createDelayedActionBlueprint">createDelayedActionBlueprint</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ACTION_PREFIX">ACTION_PREFIX</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IDLEMONITOR_ACTIVITY">IDLEMONITOR_ACTIVITY</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LIB_NAME">LIB_NAME</a></span></span></li>
@@ -184,32 +185,6 @@
         
         
         <div data-ice="description"><p>Redux state root level key</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-           <span data-ice="name"><span><a href="variable/index.html#static-variable-actionDefinition">actionDefinition</a></span></span><span data-ice="signature">: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Allows the user of lib to define custom redux actions that will be injected with libraries context when action is dispatched</p>
 </div>
       </div>
     </td>
@@ -487,7 +462,58 @@
     <td>
       <div>
         <p>
+           <span data-ice="name"><span><a href="variable/index.html#static-variable-createActionBlueprint">createActionBlueprint</a></span></span><span data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Allows the user of lib to define custom redux actions that an action creator retrieved from at a later time via a type map.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
            <span data-ice="name"><span><a href="variable/index.html#static-variable-createActionMultiplexer">createActionMultiplexer</a></span></span><span data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="variable/index.html#static-variable-createDelayedActionBlueprint">createDelayedActionBlueprint</a></span></span><span data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -1181,47 +1207,6 @@ Takes in an ordered mapping of names to stores and reduces to a redux store comp
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="static-variable-actionDefinition">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    <span data-ice="name">actionDefinition</span><span data-ice="signature">: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/actions.js.html#lineNumber20">source</a></span></span>
-    </span>
-  </h3>
-
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {actionDefinition} from &apos;<span><a href="file/lib/actions.js.html#lineNumber20">redux-addons/lib/actions.js</a></span>&apos;</code></pre></div>
-  
-  
-  <div data-ice="description"><p>Allows the user of lib to define custom redux actions that will be injected with libraries context when action is dispatched</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="static-variable-bisectStore">
     <span class="access" data-ice="access">public</span>
     
@@ -1334,11 +1319,11 @@ export const createSomeUserAction = configureDispatcherAction((dispatch, getStat
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/actions.js.html#lineNumber16">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/actions.js.html#lineNumber15">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {configureActionDispatcher} from &apos;<span><a href="file/lib/actions.js.html#lineNumber16">redux-addons/lib/actions.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {configureActionDispatcher} from &apos;<span><a href="file/lib/actions.js.html#lineNumber15">redux-addons/lib/actions.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Configures a Flux Standard Action creator injected with the libraries dispatcher and context.</p>
@@ -1691,6 +1676,47 @@ export const createSomeUserAction = configureDispatcherAction((dispatcher, conte
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-createActionBlueprint">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    <span data-ice="name">createActionBlueprint</span><span data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/actions.js.html#lineNumber19">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {createActionBlueprint} from &apos;<span><a href="file/lib/actions.js.html#lineNumber19">redux-addons/lib/actions.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Allows the user of lib to define custom redux actions that an action creator retrieved from at a later time via a type map.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="static-variable-createActionMultiplexer">
     <span class="access" data-ice="access">public</span>
     
@@ -1706,6 +1732,46 @@ export const createSomeUserAction = configureDispatcherAction((dispatcher, conte
   </h3>
 
   <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {createActionMultiplexer} from &apos;<span><a href="file/lib/store.js.html#lineNumber222">redux-addons/lib/store.js</a></span>&apos;</code></pre></div>
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-createDelayedActionBlueprint">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    <span data-ice="name">createDelayedActionBlueprint</span><span data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/actions.js.html#lineNumber20">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {createDelayedActionBlueprint} from &apos;<span><a href="file/lib/actions.js.html#lineNumber20">redux-addons/lib/actions.js</a></span>&apos;</code></pre></div>
   
   
   

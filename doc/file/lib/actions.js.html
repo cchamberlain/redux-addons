@@ -36,9 +36,10 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-configureDispatcher">configureDispatcher</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-configure">configure</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-configureReducer">configureReducer</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-actionDefinition">actionDefinition</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureAction">configureAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureActionDispatcher">configureActionDispatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createActionBlueprint">createActionBlueprint</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createDelayedActionBlueprint">createDelayedActionBlueprint</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ACTION_PREFIX">ACTION_PREFIX</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IDLEMONITOR_ACTIVITY">IDLEMONITOR_ACTIVITY</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LIB_NAME">LIB_NAME</a></span></span></li>
@@ -99,12 +100,16 @@ export const configureAction = context =&gt; handler =&gt; (dispatch, getState) 
  * export const createSomeUserAction = configureDispatcherAction((dispatcher, context) =&gt; dispatcher.action.execute(&apos;create-some-user-action&apos;))
  * @param  {function} handler: (context, dispatcher) =&gt; { ... }
  */
-//export const configureActionDispatcher = context =&gt; dispatcher =&gt; handler =&gt; (dispatch, getState) =&gt; handler(dispatcher(dispatch, getState), context)
 export const configureActionDispatcher = context =&gt; dispatcher =&gt; handler =&gt; (dispatch, getState) =&gt; handler(dispatcher(dispatch, getState), context)
 
 
-/** Allows the user of lib to define custom redux actions that will be injected with libraries context when action is dispatched */
-export const actionDefinition = (actionName, actionDefinition) =&gt; ([ actionName, actionDefinition ])
+/** Allows the user of lib to define custom redux actions that an action creator retrieved from at a later time via a type map. */
+export const createActionBlueprint = (actionName, payloadCreator, metaCreator) =&gt; createActionType =&gt; createAction(createActionType(actionName), payloadCreator, metaCreator)
+export const createDelayedActionBlueprint = (actionName, payloadCreator, delay) =&gt; createActionBlueprint(actionName, payloadCreator, () =&gt; ({ delay }))
+
+// actionBlueprint = typeMap =&gt; actionCreator
+
+// actionDefinition === { type, payloadCreactor, ?metaCreator }
 </code></pre>
 
 </div>
