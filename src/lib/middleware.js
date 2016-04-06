@@ -1,3 +1,3 @@
-import middleware, { applyLogicalMiddleware } from './middleware/src/lib'
+import middleware, { applyLogicalMiddleware } from 'redux-middleware'
 export { applyLogicalMiddleware }
 export default middleware

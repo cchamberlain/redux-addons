@@ -1,7 +1,7 @@
 import { assert } from 'chai'
 
 export const validateOpts = opts => {
-  const { actions, activeEvents, useFastState, useLocalState, thresholds } = opts
+  const { actions, activeEvents, useFastStore, useLocalStore, thresholds } = opts
   assert.ok(actions, 'actions must exist')
   assert(Array.isArray(actions), 'actions must be an array')
   assert(actions.every(x => Array.isArray(x)), 'actions must be an array of an array')

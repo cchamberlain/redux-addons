@@ -4,7 +4,7 @@
  * export const createSomeUserAction = configureDispatcherAction((dispatch, getState, context) => dispatcher.action.execute('create-some-user-action'))
  * @param  {function} handler: (dispatch, getState, context) => { ... }
  */
-export const configureAction = handler => context => (dispatch, getState) => handler(dispatch, getState, context)
+export const configureAction = context => handler => (dispatch, getState) => handler(dispatch, getState, context)
 
 /**
  * Configures a Flux Standard Action creator injected with the libraries dispatcher and context.
@@ -12,9 +12,9 @@ export const configureAction = handler => context => (dispatch, getState) => han
  * export const createSomeUserAction = configureDispatcherAction((dispatcher, context) => dispatcher.action.execute('create-some-user-action'))
  * @param  {function} handler: (context, dispatcher) => { ... }
  */
-//export const configureDispatcherAction = (handler, dispatcher) => context => (dispatch, getState) => handler(dispatcher)
-export const configureDispatcherAction = context => dispatcher => handler => (dispatch, getState) => handler(dispatcher(dispatch, getState), context)
+//export const configureActionDispatcher = context => dispatcher => handler => (dispatch, getState) => handler(dispatcher(dispatch, getState), context)
+export const configureActionDispatcher = context => dispatcher => handler => (dispatch, getState) => handler(dispatcher(dispatch, getState), context)
 
 
 /** Allows the user of lib to define custom redux actions that will be injected with libraries context when action is dispatched */
-export const actionDefinition = (actionName, actionContext) => ([ actionName, actionContext ])
+export const actionDefinition = (actionName, actionDefinition) => ([ actionName, actionDefinition ])

@@ -16,7 +16,7 @@ export default function configureDispatcher(context) {
 }
 
 const createStoresDispatcher = context => (dispatch, getState) => {
-  const { log, getAction, getTimeoutMS, useFastState, useLocalState, initialLastEvent } = context
+  const { log, getAction, getTimeoutMS, useFastStore, useLocalStore, initialLastEvent } = context
 
   const fastStateKeys = ['lastActive', 'lastEvent', 'timeoutID', 'isDetectionRunning']
   const localStateKeys = ['lastActive']
@@ -24,8 +24,8 @@ const createStoresDispatcher = context => (dispatch, getState) => {
 
   const _shouldSetState = (stateKeys, newState) => Object.keys(newState).some(x => fastStateKeys.includes(x) && typeof newState[x] !== 'undefined')
 
-  const _shouldSetFastState = newState => useFastState && _shouldSetState(fastStateKeys, newState)
-  const _shouldSetLocalState = newState => useLocalState && _shouldSetState(localStateKeys, newState)
+  const _shouldSetFastState = newState => useFastStore && _shouldSetState(fastStateKeys, newState)
+  const _shouldSetLocalState = newState => useLocalStore && _shouldSetState(localStateKeys, newState)
   const _shouldSetReduxState = newState => _shouldSetState(reduxStateKeys, newState)
 
   const _filterState = (newState, stateKeys) => {
@@ -42,7 +42,7 @@ const createStoresDispatcher = context => (dispatch, getState) => {
                                                     , timeoutID
                                                     , isDetectionRunning: false
                                                     })
-  let fastState = useFastState ? createFastState() : noop()
+  let fastState = useFastStore ? createFastState() : noop()
   const setFastState = newState => {
     fastState = Object.assign({}, fastState, _filterState(newState, fastStateKeys), { lastActive: +new Date() })
     if(process.env.NODE_ENV !== 'production')
@@ -50,7 +50,7 @@ const createStoresDispatcher = context => (dispatch, getState) => {
   }
 
   const createLocalState = ({} = {}) => ({ lastActive: +new Date() })
-  if(useLocalState)
+  if(useLocalStore)
     localStorage[IDLEMONITOR_ACTIVITY] = createLocalState()
   const getLocalState = () => {
     return localStateKeys.reduce((state, key) => {
@@ -81,11 +81,11 @@ const createStoresDispatcher = context => (dispatch, getState) => {
               /** State can be paused manually or via action dispatch or returning null/undefined from timeoutMS function */
             , get isPaused() { return libState.isPaused }
               /** The epoch MS that the user was last active */
-            , get lastActive() { return useFastState ? fastState.lastActive : libState.lastActive }
+            , get lastActive() { return useFastStore ? fastState.lastActive : libState.lastActive }
               /** Event information captured on the last recorded user action */
-            , get lastEvent() { return useFastState ? fastState.lastEvent : libState.lastEvent }
+            , get lastEvent() { return useFastStore ? fastState.lastEvent : libState.lastEvent }
               /** The timeoutID for the current scheduled next event if it exists */
-            , get timeoutID() { return useFastState ? fastState.timeoutID : libState.timeoutID }
+            , get timeoutID() { return useFastStore ? fastState.timeoutID : libState.timeoutID }
             }
   }
 
@@ -112,7 +112,7 @@ const createStoresDispatcher = context => (dispatch, getState) => {
 
   return  { get redux() { return getReduxState() }
             /** Without some way to track fast state (mousemove events), redux gets spammed with actions */
-          , get fast() { return useFastState ? fastState : getReduxState() }
+          , get fast() { return useFastStore ? fastState : getReduxState() }
             /** Things that need to be synced across tabs (lastActive, lastEvent) */
           , get local() { return {} }
             /** All state update actions flow through this, has ability to bypass redux for fast state operations or dispatch to it */
@@ -197,7 +197,7 @@ const createDetectionDispatcher = (context, { stores }) => (dispatch, getState) 
 
 
 const createActionDispatcher = (context, { timeout, stores, detection }) => (dispatch, getState) => {
-  const { log, getTimeoutMS, getAction, getNextActionName, useFastState, setFastState } = context
+  const { log, getTimeoutMS, getAction, getNextActionName, useFastStore, setFastState } = context
   const { setState } = stores
   const _isPauseTriggered = timeoutMS => timeoutMS === null || timeoutMS === false || typeof timeoutMS === 'undefined'
 
