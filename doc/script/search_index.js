@@ -30,6 +30,12 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "redux-addons/lib/store.js~bisectstore",
+    "variable/index.html#static-variable-bisectStore",
+    "<span>bisectStore</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
+    "variable"
+  ],
+  [
     "redux-addons~configure",
     "function/index.html#static-function-configure",
     "<span>configure</span> <span class=\"search-result-import-path\">redux-addons</span>",
@@ -39,6 +45,24 @@ window.esdocSearchIndex = [
     "redux-addons/lib/actions.js~configureaction",
     "variable/index.html#static-variable-configureAction",
     "<span>configureAction</span> <span class=\"search-result-import-path\">redux-addons/lib/actions.js</span>",
+    "variable"
+  ],
+  [
+    "redux-addons/lib/actions.js~configureactiondispatcher",
+    "variable/index.html#static-variable-configureActionDispatcher",
+    "<span>configureActionDispatcher</span> <span class=\"search-result-import-path\">redux-addons/lib/actions.js</span>",
+    "variable"
+  ],
+  [
+    "redux-addons/lib/store.js~configurebrowserstateaccessor",
+    "variable/index.html#static-variable-configureBrowserStateAccessor",
+    "<span>configureBrowserStateAccessor</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
+    "variable"
+  ],
+  [
+    "redux-addons/lib/store.js~configurebrowserstore",
+    "variable/index.html#static-variable-configureBrowserStore",
+    "<span>configureBrowserStore</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
     "variable"
   ],
   [
@@ -54,9 +78,15 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "redux-addons/lib/actions.js~configuredispatcheraction",
-    "variable/index.html#static-variable-configureDispatcherAction",
-    "<span>configureDispatcherAction</span> <span class=\"search-result-import-path\">redux-addons/lib/actions.js</span>",
+    "redux-addons/lib/store.js~configurelocalstateaccessor",
+    "variable/index.html#static-variable-configureLocalStateAccessor",
+    "<span>configureLocalStateAccessor</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
+    "variable"
+  ],
+  [
+    "redux-addons/lib/store.js~configurelocalstore",
+    "variable/index.html#static-variable-configureLocalStore",
+    "<span>configureLocalStore</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
     "variable"
   ],
   [
@@ -66,15 +96,81 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "redux-addons/lib/store.js~configurereducer",
+    "variable/index.html#static-variable-configureReducer",
+    "<span>configureReducer</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
+    "variable"
+  ],
+  [
+    "redux-addons/lib/store.js~configuresessionstateaccessor",
+    "variable/index.html#static-variable-configureSessionStateAccessor",
+    "<span>configureSessionStateAccessor</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
+    "variable"
+  ],
+  [
+    "redux-addons/lib/store.js~configuresessionstore",
+    "variable/index.html#static-variable-configureSessionStore",
+    "<span>configureSessionStore</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
+    "variable"
+  ],
+  [
+    "redux-addons/lib/store.js~createactionmultiplexer",
+    "variable/index.html#static-variable-createActionMultiplexer",
+    "<span>createActionMultiplexer</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
+    "variable"
+  ],
+  [
+    "redux-addons/lib/store.js~createjsonlocalstore",
+    "variable/index.html#static-variable-createJSONLocalStore",
+    "<span>createJSONLocalStore</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
+    "variable"
+  ],
+  [
+    "redux-addons/lib/store.js~createjsonsessionstore",
+    "variable/index.html#static-variable-createJSONSessionStore",
+    "<span>createJSONSessionStore</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
+    "variable"
+  ],
+  [
+    "redux-addons/lib/store.js~createlocalstore",
+    "variable/index.html#static-variable-createLocalStore",
+    "<span>createLocalStore</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
+    "variable"
+  ],
+  [
     "redux-addons/lib/log.js~createlogger",
     "variable/index.html#static-variable-createLogger",
     "<span>createLogger</span> <span class=\"search-result-import-path\">redux-addons/lib/log.js</span>",
     "variable"
   ],
   [
+    "redux-addons/lib/store.js~createmergingreducer",
+    "variable/index.html#static-variable-createMergingReducer",
+    "<span>createMergingReducer</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
+    "variable"
+  ],
+  [
+    "redux-addons/lib/store.js~createnoopstore",
+    "variable/index.html#static-variable-createNoopStore",
+    "<span>createNoopStore</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
+    "variable"
+  ],
+  [
     "redux-addons/lib/reducer.js~createreducer",
     "variable/index.html#static-variable-createReducer",
     "<span>createReducer</span> <span class=\"search-result-import-path\">redux-addons/lib/reducer.js</span>",
+    "variable"
+  ],
+  [
+    "redux-addons/lib/store.js~createsessionstore",
+    "variable/index.html#static-variable-createSessionStore",
+    "<span>createSessionStore</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
+    "variable"
+  ],
+  [
+    "redux-addons/lib/store.js~createstoremultiplexer",
+    "variable/index.html#static-variable-createStoreMultiplexer",
+    "<span>createStoreMultiplexer</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
     "variable"
   ],
   [
@@ -123,6 +219,18 @@ window.esdocSearchIndex = [
     "redux-addons/lib/defaults.js~getusewebsocketsstate",
     "variable/index.html#static-variable-getUseWebSocketsState",
     "<span>getUseWebSocketsState</span> <span class=\"search-result-import-path\">redux-addons/lib/defaults.js</span>",
+    "variable"
+  ],
+  [
+    "redux-addons/lib/store.js~selectstate",
+    "variable/index.html#static-variable-selectState",
+    "<span>selectState</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
+    "variable"
+  ],
+  [
+    "redux-addons/lib/store.js~toconstcase",
+    "variable/index.html#static-variable-toConstCase",
+    "<span>toConstCase</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
     "variable"
   ],
   [
@@ -561,6 +669,12 @@ window.esdocSearchIndex = [
     "lib/reducer.js",
     "file/lib/reducer.js.html",
     "lib/reducer.js",
+    "file"
+  ],
+  [
+    "lib/store.js",
+    "file/lib/store.js.html",
+    "lib/store.js",
     "file"
   ],
   [

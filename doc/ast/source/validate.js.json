@@ -384,7 +384,7 @@
                                     "column": 45
                                   }
                                 },
-                                "name": "useFastState"
+                                "name": "useFastStore"
                               },
                               "kind": "init",
                               "value": {
@@ -401,7 +401,7 @@
                                     "column": 45
                                   }
                                 },
-                                "name": "useFastState"
+                                "name": "useFastStore"
                               }
                             },
                             {
@@ -435,7 +435,7 @@
                                     "column": 60
                                   }
                                 },
-                                "name": "useLocalState"
+                                "name": "useLocalStore"
                               },
                               "kind": "init",
                               "value": {
@@ -452,7 +452,7 @@
                                     "column": 60
                                   }
                                 },
-                                "name": "useLocalState"
+                                "name": "useLocalStore"
                               }
                             },
                             {
