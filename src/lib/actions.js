@@ -12,9 +12,13 @@ export const configureAction = context => handler => (dispatch, getState) => han
  * export const createSomeUserAction = configureDispatcherAction((dispatcher, context) => dispatcher.action.execute('create-some-user-action'))
  * @param  {function} handler: (context, dispatcher) => { ... }
  */
-//export const configureActionDispatcher = context => dispatcher => handler => (dispatch, getState) => handler(dispatcher(dispatch, getState), context)
 export const configureActionDispatcher = context => dispatcher => handler => (dispatch, getState) => handler(dispatcher(dispatch, getState), context)
 
 
-/** Allows the user of lib to define custom redux actions that will be injected with libraries context when action is dispatched */
-export const actionDefinition = (actionName, actionDefinition) => ([ actionName, actionDefinition ])
+/** Allows the user of lib to define custom redux actions that an action creator retrieved from at a later time via a type map. */
+export const createActionBlueprint = (actionName, payloadCreator, metaCreator) => createActionType => createAction(createActionType(actionName), payloadCreator, metaCreator)
+export const createDelayedActionBlueprint = (actionName, payloadCreator, delay) => createActionBlueprint(actionName, payloadCreator, () => ({ delay }))
+
+// actionBlueprint = typeMap => actionCreator
+
+// actionDefinition === { type, payloadCreactor, ?metaCreator }

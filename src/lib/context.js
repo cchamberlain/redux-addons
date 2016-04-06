@@ -83,8 +83,6 @@ const validateAppOpts = appOptsRaw => {
   assert(appName.length > 0, 'appName opt must not be empty')
 }
 
-const validateAppContext = context => {
-}
 
 
 
@@ -96,9 +94,6 @@ const normalizeLibOpts = libOptsRaw => {
 
   const libActionMap = new Map(libActions)
   const libActionNames = libActions.map(x => x[0])
-  const validateAgainstLibOpts = appOptsRaw => {
-    assert(appOptsRaw.appActions.every(x => !libActionNames.includes(x[0])), 'action names must be unique across lib and app')
-  }
   return  { libName
           , libActions
           , libActionMap
@@ -106,16 +101,13 @@ const normalizeLibOpts = libOptsRaw => {
           , validateContext
           , configureAppContext
           , configureInitialState
-          , validateAgainstLibOpts
           }
 
 }
 const normalizeAppOpts = appOptsRaw => {
   if(isDev) validateAppOpts(appOptsRaw)
-  const { appName, appActions } = appOptsRaw
+  const { appName } = appOptsRaw
   return  { ...appOptsRaw
-          , appActionMap: new Map(appActions)
-          , appActionNames: appActions.map(x => x[0])
           }
 }
 /*
@@ -125,31 +117,18 @@ const {  } = context
  */
 export default function configureContext(libOptsRaw) {
   const libOpts = normalizeLibOpts(libOptsRaw)
-  const { libName, libActions, libActionMap, libActionNames, validateContext, configureAppContext, configureInitialState, validateAgainstLibOpts } = libOpts
+  const { libName, libActions, libActionMap, libActionNames, validateContext, configureAppContext, configureInitialState } = libOpts
   return appOptsRaw => {
-    if(isDev) validateAgainstLibOpts(appOptsRaw)
     const appOpts = normalizeAppOpts(appOptsRaw)
-    const { appName, appActions, appActionMap, appActionNames, level } = appOpts
-
-    const actions = [...libActions, ...appActions]
-    const actionMap = new Map(actions)
-    const actionNames = actions.map(x => x[0])
+    const { appName, level } = appOpts
 
     const createActionType =  actionName => `${cleanActionName(libName)}_${cleanActionName(appName)}_${cleanActionName(actionName)}`
     const typedLibActions = libActions.map(x => [createActionType(x[0]), x[1]])
-    const typedAppActions = appActions.map(x => [createActionType(x[0]), x[1]])
     const libActionTypes = typedLibActions.map(x => x[0])
-    const appActionTypes = typedAppActions.map(x => x[0])
-    const typedActions = [...typedLibActions, ...typedAppActions]
-    const typedActionMap = new Map(typedActions)
-    const actionTypes = typedActions.map(x => x[0])
-
-    const getActionType = actionName => actionTypes[actionNames.indexOf(actionName)]
 
     const getActionContextByName = actionName => actionMap.get(actionName)
     const getActionContextByType = actionType => typedActionMap.get(actionType)
     const getLibActionContextByOrdinal = ordinal => libActions[ordinal][1]
-    const getAppActionContextByOrdinal = ordinal => appActions[ordinal][1]
 
     const libContext =  { log: createLogger({ libName, level })
                         , libName
@@ -157,31 +136,17 @@ export default function configureContext(libOptsRaw) {
                         , libActionMap
                         , libActionNames
                         , appName
-                        , appActions
-                        , appActionMap
-                        , appActionNames
-                        , actions
-                        , actionMap
-                        , actionNames
                         , createActionType
                         , typedLibActions
-                        , typedAppActions
                         , libActionTypes
-                        , appActionTypes
-                        , typedActions
-                        , typedActionMap
-                        , actionTypes
-                        , getActionType
                         , getActionContextByName
                         , getActionContextByType
                         , getLibActionContextByOrdinal
-                        , getAppActionContextByOrdinal
                         }
 
 
     const appContext = configureAppContext(libContext)(appOpts)
     if(process.env.NODE_ENV !== 'production') {
-      validateAppContext(appContext)
       validateContext(libContext, appContext)
     }
 
