@@ -527,7 +527,7 @@
                                     "column": 54
                                   }
                                 },
-                                "name": "useFastState"
+                                "name": "useFastStore"
                               },
                               "kind": "init",
                               "value": {
@@ -544,7 +544,7 @@
                                     "column": 54
                                   }
                                 },
-                                "name": "useFastState"
+                                "name": "useFastStore"
                               }
                             },
                             {
@@ -578,7 +578,7 @@
                                     "column": 69
                                   }
                                 },
-                                "name": "useLocalState"
+                                "name": "useLocalStore"
                               },
                               "kind": "init",
                               "value": {
@@ -595,7 +595,7 @@
                                     "column": 69
                                   }
                                 },
-                                "name": "useLocalState"
+                                "name": "useLocalStore"
                               }
                             },
                             {
@@ -1315,7 +1315,7 @@
                                         "column": 21
                                       }
                                     },
-                                    "name": "useFastState"
+                                    "name": "useFastStore"
                                   },
                                   "consequent": {
                                     "type": "ReturnStatement",
