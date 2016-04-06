@@ -36,9 +36,10 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-configureDispatcher">configureDispatcher</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-configure">configure</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-configureReducer">configureReducer</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-actionDefinition">actionDefinition</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureAction">configureAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureActionDispatcher">configureActionDispatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createActionBlueprint">createActionBlueprint</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createDelayedActionBlueprint">createDelayedActionBlueprint</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ACTION_PREFIX">ACTION_PREFIX</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IDLEMONITOR_ACTIVITY">IDLEMONITOR_ACTIVITY</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LIB_NAME">LIB_NAME</a></span></span></li>
@@ -170,8 +171,6 @@ const validateAppOpts = appOptsRaw =&gt; {
   assert(appName.length &gt; 0, &apos;appName opt must not be empty&apos;)
 }
 
-const validateAppContext = context =&gt; {
-}
 
 
 
@@ -183,9 +182,6 @@ const normalizeLibOpts = libOptsRaw =&gt; {
 
   const libActionMap = new Map(libActions)
   const libActionNames = libActions.map(x =&gt; x[0])
-  const validateAgainstLibOpts = appOptsRaw =&gt; {
-    assert(appOptsRaw.appActions.every(x =&gt; !libActionNames.includes(x[0])), &apos;action names must be unique across lib and app&apos;)
-  }
   return  { libName
           , libActions
           , libActionMap
@@ -193,16 +189,13 @@ const normalizeLibOpts = libOptsRaw =&gt; {
           , validateContext
           , configureAppContext
           , configureInitialState
-          , validateAgainstLibOpts
           }
 
 }
 const normalizeAppOpts = appOptsRaw =&gt; {
   if(isDev) validateAppOpts(appOptsRaw)
-  const { appName, appActions } = appOptsRaw
+  const { appName } = appOptsRaw
   return  { ...appOptsRaw
-          , appActionMap: new Map(appActions)
-          , appActionNames: appActions.map(x =&gt; x[0])
           }
 }
 /*
@@ -212,31 +205,18 @@ const {  } = context
  */
 export default function configureContext(libOptsRaw) {
   const libOpts = normalizeLibOpts(libOptsRaw)
-  const { libName, libActions, libActionMap, libActionNames, validateContext, configureAppContext, configureInitialState, validateAgainstLibOpts } = libOpts
+  const { libName, libActions, libActionMap, libActionNames, validateContext, configureAppContext, configureInitialState } = libOpts
   return appOptsRaw =&gt; {
-    if(isDev) validateAgainstLibOpts(appOptsRaw)
     const appOpts = normalizeAppOpts(appOptsRaw)
-    const { appName, appActions, appActionMap, appActionNames, level } = appOpts
-
-    const actions = [...libActions, ...appActions]
-    const actionMap = new Map(actions)
-    const actionNames = actions.map(x =&gt; x[0])
+    const { appName, level } = appOpts
 
     const createActionType =  actionName =&gt; `${cleanActionName(libName)}_${cleanActionName(appName)}_${cleanActionName(actionName)}`
     const typedLibActions = libActions.map(x =&gt; [createActionType(x[0]), x[1]])
-    const typedAppActions = appActions.map(x =&gt; [createActionType(x[0]), x[1]])
     const libActionTypes = typedLibActions.map(x =&gt; x[0])
-    const appActionTypes = typedAppActions.map(x =&gt; x[0])
-    const typedActions = [...typedLibActions, ...typedAppActions]
-    const typedActionMap = new Map(typedActions)
-    const actionTypes = typedActions.map(x =&gt; x[0])
-
-    const getActionType = actionName =&gt; actionTypes[actionNames.indexOf(actionName)]
 
     const getActionContextByName = actionName =&gt; actionMap.get(actionName)
     const getActionContextByType = actionType =&gt; typedActionMap.get(actionType)
     const getLibActionContextByOrdinal = ordinal =&gt; libActions[ordinal][1]
-    const getAppActionContextByOrdinal = ordinal =&gt; appActions[ordinal][1]
 
     const libContext =  { log: createLogger({ libName, level })
                         , libName
@@ -244,31 +224,17 @@ export default function configureContext(libOptsRaw) {
                         , libActionMap
                         , libActionNames
                         , appName
-                        , appActions
-                        , appActionMap
-                        , appActionNames
-                        , actions
-                        , actionMap
-                        , actionNames
                         , createActionType
                         , typedLibActions
-                        , typedAppActions
                         , libActionTypes
-                        , appActionTypes
-                        , typedActions
-                        , typedActionMap
-                        , actionTypes
-                        , getActionType
                         , getActionContextByName
                         , getActionContextByType
                         , getLibActionContextByOrdinal
-                        , getAppActionContextByOrdinal
                         }
 
 
     const appContext = configureAppContext(libContext)(appOpts)
     if(process.env.NODE_ENV !== &apos;production&apos;) {
-      validateAppContext(appContext)
       validateContext(libContext, appContext)
     }
 

@@ -1,6 +1,6 @@
 {
-  "coverage": "57.5%",
-  "expectCount": 40,
+  "coverage": "56.09%",
+  "expectCount": 41,
   "actualCount": 23,
   "files": {
     "lib/constants.js": {
@@ -9,11 +9,6 @@
       "undocumentLines": [
         9
       ]
-    },
-    "lib/actions.js": {
-      "expectCount": 3,
-      "actualCount": 3,
-      "undocumentLines": []
     },
     "lib/store.js": {
       "expectCount": 18,
@@ -31,11 +26,18 @@
         9
       ]
     },
+    "lib/actions.js": {
+      "expectCount": 4,
+      "actualCount": 3,
+      "undocumentLines": [
+        20
+      ]
+    },
     "lib/context.js": {
       "expectCount": 1,
       "actualCount": 0,
       "undocumentLines": [
-        126
+        118
       ]
     },
     "lib/dispatcher.js": {

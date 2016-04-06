@@ -10,7 +10,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "/**\r\n * Configures a Flux Standard Action creator injected with dispatch, getState and the libraries context.\r\n * @example <caption>Exports a Flux Standard Action creator that takes a handler injected with dispatch, getState, and the libraries context.\r\n * export const createSomeUserAction = configureDispatcherAction((dispatch, getState, context) => dispatcher.action.execute('create-some-user-action'))\r\n * @param  {function} handler: (dispatch, getState, context) => { ... }\r\n */\r\nexport const configureAction = context => handler => (dispatch, getState) => handler(dispatch, getState, context)\r\n\r\n/**\r\n * Configures a Flux Standard Action creator injected with the libraries dispatcher and context.\r\n * @example <caption>Exports a Flux Standard Action creator that takes a handler injected with the libraries dispatcher and context.\r\n * export const createSomeUserAction = configureDispatcherAction((dispatcher, context) => dispatcher.action.execute('create-some-user-action'))\r\n * @param  {function} handler: (context, dispatcher) => { ... }\r\n */\r\n//export const configureActionDispatcher = context => dispatcher => handler => (dispatch, getState) => handler(dispatcher(dispatch, getState), context)\r\nexport const configureActionDispatcher = context => dispatcher => handler => (dispatch, getState) => handler(dispatcher(dispatch, getState), context)\r\n\r\n\r\n/** Allows the user of lib to define custom redux actions that will be injected with libraries context when action is dispatched */\r\nexport const actionDefinition = (actionName, actionDefinition) => ([ actionName, actionDefinition ])\r\n"
+    "content": "/**\r\n * Configures a Flux Standard Action creator injected with dispatch, getState and the libraries context.\r\n * @example <caption>Exports a Flux Standard Action creator that takes a handler injected with dispatch, getState, and the libraries context.\r\n * export const createSomeUserAction = configureDispatcherAction((dispatch, getState, context) => dispatcher.action.execute('create-some-user-action'))\r\n * @param  {function} handler: (dispatch, getState, context) => { ... }\r\n */\r\nexport const configureAction = context => handler => (dispatch, getState) => handler(dispatch, getState, context)\r\n\r\n/**\r\n * Configures a Flux Standard Action creator injected with the libraries dispatcher and context.\r\n * @example <caption>Exports a Flux Standard Action creator that takes a handler injected with the libraries dispatcher and context.\r\n * export const createSomeUserAction = configureDispatcherAction((dispatcher, context) => dispatcher.action.execute('create-some-user-action'))\r\n * @param  {function} handler: (context, dispatcher) => { ... }\r\n */\r\nexport const configureActionDispatcher = context => dispatcher => handler => (dispatch, getState) => handler(dispatcher(dispatch, getState), context)\r\n\r\n\r\n/** Allows the user of lib to define custom redux actions that an action creator retrieved from at a later time via a type map. */\r\nexport const createActionBlueprint = (actionName, payloadCreator, metaCreator) => createActionType => createAction(createActionType(actionName), payloadCreator, metaCreator)\r\nexport const createDelayedActionBlueprint = (actionName, payloadCreator, delay) => createActionBlueprint(actionName, payloadCreator, () => ({ delay }))\r\n\r\n// actionBlueprint = typeMap => actionCreator\r\n\r\n// actionDefinition === { type, payloadCreactor, ?metaCreator }\r\n"
   },
   {
     "__docId__": 1,
@@ -63,7 +63,7 @@
     "examples": [
       "<caption>Exports a Flux Standard Action creator that takes a handler injected with the libraries dispatcher and context.\nexport const createSomeUserAction = configureDispatcherAction((dispatcher, context) => dispatcher.action.execute('create-some-user-action'))"
     ],
-    "lineNumber": 16,
+    "lineNumber": 15,
     "params": [
       {
         "nullable": null,
@@ -87,15 +87,15 @@
     "kind": "variable",
     "static": true,
     "variation": null,
-    "name": "actionDefinition",
+    "name": "createActionBlueprint",
     "memberof": "lib/actions.js",
-    "longname": "lib/actions.js~actionDefinition",
+    "longname": "lib/actions.js~createActionBlueprint",
     "access": null,
     "export": true,
     "importPath": "redux-addons/lib/actions.js",
-    "importStyle": "{actionDefinition}",
-    "description": "Allows the user of lib to define custom redux actions that will be injected with libraries context when action is dispatched",
-    "lineNumber": 20,
+    "importStyle": "{createActionBlueprint}",
+    "description": "Allows the user of lib to define custom redux actions that an action creator retrieved from at a later time via a type map.",
+    "lineNumber": 19,
     "type": {
       "types": [
         "*"
@@ -104,6 +104,27 @@
   },
   {
     "__docId__": 4,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "createDelayedActionBlueprint",
+    "memberof": "lib/actions.js",
+    "longname": "lib/actions.js~createDelayedActionBlueprint",
+    "access": null,
+    "export": true,
+    "importPath": "redux-addons/lib/actions.js",
+    "importStyle": "{createDelayedActionBlueprint}",
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 5,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -116,7 +137,7 @@
     "content": "/** Lib Constants */\r\nexport const LIB_NAME = 'redux-idle-monitor'\r\n\r\n/** Redux state root level key */\r\nexport const ROOT_STATE_KEY = 'idle'\r\n\r\n/** Redux Action Type Constants */\r\nexport const ACTION_PREFIX = 'IDLEMONITOR'\r\nexport const IDLEMONITOR_ACTIVITY = `${ACTION_PREFIX}_ACTIVITY`\r\n"
   },
   {
-    "__docId__": 5,
+    "__docId__": 6,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -136,7 +157,7 @@
     }
   },
   {
-    "__docId__": 6,
+    "__docId__": 7,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -156,7 +177,7 @@
     }
   },
   {
-    "__docId__": 7,
+    "__docId__": 8,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -176,7 +197,7 @@
     }
   },
   {
-    "__docId__": 8,
+    "__docId__": 9,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -197,7 +218,7 @@
     }
   },
   {
-    "__docId__": 9,
+    "__docId__": 10,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -207,10 +228,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import { assert } from 'chai'\r\nimport { validateOpts } from './validate'\r\n\r\nimport  { createLogger } from './log'\r\n\r\n\r\n/**\r\n * @typedef {Object} LibOpts\r\n * @property {string} libName the name of the library.\r\n * @property {function(context: LibContext): AppValidator} createValidator\r\n */\r\n\r\n /**\r\n  * @typedef {function(opts: AppOpts)} AppValidator\r\n  */\r\n\r\n/**\r\n * @typedef {Object} AppOpts\r\n * @property {string} appName the name of the application.\r\n */\r\n\r\n/**\r\n * @typedef {Object} LibContext\r\n * @property {string} libName the name of the library.\r\n * @property {string} appName the name of the application.\r\n * @property {string} actionNames the names of the defined actions (ordered).\r\n */\r\n\r\n/**\r\n * @typedef {LibAction[]} LibActions\r\n */\r\n\r\n/**\r\n * @typedef {Array} LibAction\r\n */\r\n\r\n/**\r\n * @typedef {Object} LibContext\r\n * @property {string[]} actionNames the names of all the actions (ordered).\r\n */\r\n\r\n/**\r\n * @typedef CreateContext\r\n * @type {function(appOpts: AppOpts): AppContext }\r\n */\r\n\r\n\r\n\r\nconst noop = () => {}\r\nconst cleanActionName = name => name.toUpperCase().replace(/-+\\s+/, '_')\r\nconst configureActionName = libName => appName => actionName => `${cleanActionName(libName)}_${cleanActionName(appName)}_${cleanActionName(actionName)}`\r\n\r\n/** Validates library creators options */\r\nconst validateLibOpts = libOptsRaw => {\r\n  assert.ok(libOptsRaw, 'libOpts definition is required')\r\n  const { libName, libActions, validateContext, configureAppContext, configureInitialState } = libOptsRaw\r\n  assert(typeof libName === 'string', 'libName must be a string')\r\n  assert(libName.length > 0, 'libName must not be empty')\r\n\r\n  assert.ok(libActions, 'libActions must exist')\r\n  assert(Array.isArray(libActions), 'libActions must be an array')\r\n  assert(libActions.every(x => Array.isArray(x)), 'libActions must be an array of an array')\r\n  assert(libActions.every(x => x.length === 2), 'every item in libActions must have length 2')\r\n  assert(libActions.every(x => typeof x[0] === 'string'), 'every item in libActions must have first ordinal type string action name')\r\n  assert(libActions.every(x => typeof x[1] === 'object'), 'every item in libActions must have second ordinal type object actionContext')\r\n\r\n  assert.ok(validateContext, 'validateContext must exist')\r\n  assert(typeof validateContext === 'function', 'validateContext must be a function')\r\n\r\n  assert.ok(configureAppContext, 'configureAppContext must exist')\r\n  assert(typeof configureAppContext === 'function', 'configureAppContext must be a function')\r\n\r\n  assert.ok(configureInitialState, 'configureInitialState must exist')\r\n  assert(typeof configureInitialState === 'function', 'configureInitialState must be a function')\r\n}\r\n\r\n/** Validates library consumers options */\r\nconst validateAppOpts = appOptsRaw => {\r\n  assert.ok(appOptsRaw, 'appOpts are required')\r\n  const { appName } = appOptsRaw\r\n\r\n  assert(typeof appName === 'string', 'appName opt must be a string')\r\n  assert(appName.length > 0, 'appName opt must not be empty')\r\n}\r\n\r\nconst validateAppContext = context => {\r\n}\r\n\r\n\r\n\r\nconst isDev = process.env.NODE_ENV !== 'production'\r\n\r\nconst normalizeLibOpts = libOptsRaw => {\r\n  if(isDev) validateLibOpts(libOptsRaw)\r\n  const { libName, libActions, validateContext, configureAppContext, configureInitialState } = libOptsRaw\r\n\r\n  const libActionMap = new Map(libActions)\r\n  const libActionNames = libActions.map(x => x[0])\r\n  const validateAgainstLibOpts = appOptsRaw => {\r\n    assert(appOptsRaw.appActions.every(x => !libActionNames.includes(x[0])), 'action names must be unique across lib and app')\r\n  }\r\n  return  { libName\r\n          , libActions\r\n          , libActionMap\r\n          , libActionNames\r\n          , validateContext\r\n          , configureAppContext\r\n          , configureInitialState\r\n          , validateAgainstLibOpts\r\n          }\r\n\r\n}\r\nconst normalizeAppOpts = appOptsRaw => {\r\n  if(isDev) validateAppOpts(appOptsRaw)\r\n  const { appName, appActions } = appOptsRaw\r\n  return  { ...appOptsRaw\r\n          , appActionMap: new Map(appActions)\r\n          , appActionNames: appActions.map(x => x[0])\r\n          }\r\n}\r\n/*\r\nimport configureContext from 'redux-addons/context'\r\nconst context = configureContext(libOpts)(appOpts)\r\nconst {  } = context\r\n */\r\nexport default function configureContext(libOptsRaw) {\r\n  const libOpts = normalizeLibOpts(libOptsRaw)\r\n  const { libName, libActions, libActionMap, libActionNames, validateContext, configureAppContext, configureInitialState, validateAgainstLibOpts } = libOpts\r\n  return appOptsRaw => {\r\n    if(isDev) validateAgainstLibOpts(appOptsRaw)\r\n    const appOpts = normalizeAppOpts(appOptsRaw)\r\n    const { appName, appActions, appActionMap, appActionNames, level } = appOpts\r\n\r\n    const actions = [...libActions, ...appActions]\r\n    const actionMap = new Map(actions)\r\n    const actionNames = actions.map(x => x[0])\r\n\r\n    const createActionType =  actionName => `${cleanActionName(libName)}_${cleanActionName(appName)}_${cleanActionName(actionName)}`\r\n    const typedLibActions = libActions.map(x => [createActionType(x[0]), x[1]])\r\n    const typedAppActions = appActions.map(x => [createActionType(x[0]), x[1]])\r\n    const libActionTypes = typedLibActions.map(x => x[0])\r\n    const appActionTypes = typedAppActions.map(x => x[0])\r\n    const typedActions = [...typedLibActions, ...typedAppActions]\r\n    const typedActionMap = new Map(typedActions)\r\n    const actionTypes = typedActions.map(x => x[0])\r\n\r\n    const getActionType = actionName => actionTypes[actionNames.indexOf(actionName)]\r\n\r\n    const getActionContextByName = actionName => actionMap.get(actionName)\r\n    const getActionContextByType = actionType => typedActionMap.get(actionType)\r\n    const getLibActionContextByOrdinal = ordinal => libActions[ordinal][1]\r\n    const getAppActionContextByOrdinal = ordinal => appActions[ordinal][1]\r\n\r\n    const libContext =  { log: createLogger({ libName, level })\r\n                        , libName\r\n                        , libActions\r\n                        , libActionMap\r\n                        , libActionNames\r\n                        , appName\r\n                        , appActions\r\n                        , appActionMap\r\n                        , appActionNames\r\n                        , actions\r\n                        , actionMap\r\n                        , actionNames\r\n                        , createActionType\r\n                        , typedLibActions\r\n                        , typedAppActions\r\n                        , libActionTypes\r\n                        , appActionTypes\r\n                        , typedActions\r\n                        , typedActionMap\r\n                        , actionTypes\r\n                        , getActionType\r\n                        , getActionContextByName\r\n                        , getActionContextByType\r\n                        , getLibActionContextByOrdinal\r\n                        , getAppActionContextByOrdinal\r\n                        }\r\n\r\n\r\n    const appContext = configureAppContext(libContext)(appOpts)\r\n    if(process.env.NODE_ENV !== 'production') {\r\n      validateAppContext(appContext)\r\n      validateContext(libContext, appContext)\r\n    }\r\n\r\n    return Object.assign( appContext, libContext, { get initialState() { return configureInitialState(libContext)(appContext) }\r\n                                                  })\r\n  }\r\n}\r\n"
+    "content": "import { assert } from 'chai'\r\nimport { validateOpts } from './validate'\r\n\r\nimport  { createLogger } from './log'\r\n\r\n\r\n/**\r\n * @typedef {Object} LibOpts\r\n * @property {string} libName the name of the library.\r\n * @property {function(context: LibContext): AppValidator} createValidator\r\n */\r\n\r\n /**\r\n  * @typedef {function(opts: AppOpts)} AppValidator\r\n  */\r\n\r\n/**\r\n * @typedef {Object} AppOpts\r\n * @property {string} appName the name of the application.\r\n */\r\n\r\n/**\r\n * @typedef {Object} LibContext\r\n * @property {string} libName the name of the library.\r\n * @property {string} appName the name of the application.\r\n * @property {string} actionNames the names of the defined actions (ordered).\r\n */\r\n\r\n/**\r\n * @typedef {LibAction[]} LibActions\r\n */\r\n\r\n/**\r\n * @typedef {Array} LibAction\r\n */\r\n\r\n/**\r\n * @typedef {Object} LibContext\r\n * @property {string[]} actionNames the names of all the actions (ordered).\r\n */\r\n\r\n/**\r\n * @typedef CreateContext\r\n * @type {function(appOpts: AppOpts): AppContext }\r\n */\r\n\r\n\r\n\r\nconst noop = () => {}\r\nconst cleanActionName = name => name.toUpperCase().replace(/-+\\s+/, '_')\r\nconst configureActionName = libName => appName => actionName => `${cleanActionName(libName)}_${cleanActionName(appName)}_${cleanActionName(actionName)}`\r\n\r\n/** Validates library creators options */\r\nconst validateLibOpts = libOptsRaw => {\r\n  assert.ok(libOptsRaw, 'libOpts definition is required')\r\n  const { libName, libActions, validateContext, configureAppContext, configureInitialState } = libOptsRaw\r\n  assert(typeof libName === 'string', 'libName must be a string')\r\n  assert(libName.length > 0, 'libName must not be empty')\r\n\r\n  assert.ok(libActions, 'libActions must exist')\r\n  assert(Array.isArray(libActions), 'libActions must be an array')\r\n  assert(libActions.every(x => Array.isArray(x)), 'libActions must be an array of an array')\r\n  assert(libActions.every(x => x.length === 2), 'every item in libActions must have length 2')\r\n  assert(libActions.every(x => typeof x[0] === 'string'), 'every item in libActions must have first ordinal type string action name')\r\n  assert(libActions.every(x => typeof x[1] === 'object'), 'every item in libActions must have second ordinal type object actionContext')\r\n\r\n  assert.ok(validateContext, 'validateContext must exist')\r\n  assert(typeof validateContext === 'function', 'validateContext must be a function')\r\n\r\n  assert.ok(configureAppContext, 'configureAppContext must exist')\r\n  assert(typeof configureAppContext === 'function', 'configureAppContext must be a function')\r\n\r\n  assert.ok(configureInitialState, 'configureInitialState must exist')\r\n  assert(typeof configureInitialState === 'function', 'configureInitialState must be a function')\r\n}\r\n\r\n/** Validates library consumers options */\r\nconst validateAppOpts = appOptsRaw => {\r\n  assert.ok(appOptsRaw, 'appOpts are required')\r\n  const { appName } = appOptsRaw\r\n\r\n  assert(typeof appName === 'string', 'appName opt must be a string')\r\n  assert(appName.length > 0, 'appName opt must not be empty')\r\n}\r\n\r\n\r\n\r\n\r\nconst isDev = process.env.NODE_ENV !== 'production'\r\n\r\nconst normalizeLibOpts = libOptsRaw => {\r\n  if(isDev) validateLibOpts(libOptsRaw)\r\n  const { libName, libActions, validateContext, configureAppContext, configureInitialState } = libOptsRaw\r\n\r\n  const libActionMap = new Map(libActions)\r\n  const libActionNames = libActions.map(x => x[0])\r\n  return  { libName\r\n          , libActions\r\n          , libActionMap\r\n          , libActionNames\r\n          , validateContext\r\n          , configureAppContext\r\n          , configureInitialState\r\n          }\r\n\r\n}\r\nconst normalizeAppOpts = appOptsRaw => {\r\n  if(isDev) validateAppOpts(appOptsRaw)\r\n  const { appName } = appOptsRaw\r\n  return  { ...appOptsRaw\r\n          }\r\n}\r\n/*\r\nimport configureContext from 'redux-addons/context'\r\nconst context = configureContext(libOpts)(appOpts)\r\nconst {  } = context\r\n */\r\nexport default function configureContext(libOptsRaw) {\r\n  const libOpts = normalizeLibOpts(libOptsRaw)\r\n  const { libName, libActions, libActionMap, libActionNames, validateContext, configureAppContext, configureInitialState } = libOpts\r\n  return appOptsRaw => {\r\n    const appOpts = normalizeAppOpts(appOptsRaw)\r\n    const { appName, level } = appOpts\r\n\r\n    const createActionType =  actionName => `${cleanActionName(libName)}_${cleanActionName(appName)}_${cleanActionName(actionName)}`\r\n    const typedLibActions = libActions.map(x => [createActionType(x[0]), x[1]])\r\n    const libActionTypes = typedLibActions.map(x => x[0])\r\n\r\n    const getActionContextByName = actionName => actionMap.get(actionName)\r\n    const getActionContextByType = actionType => typedActionMap.get(actionType)\r\n    const getLibActionContextByOrdinal = ordinal => libActions[ordinal][1]\r\n\r\n    const libContext =  { log: createLogger({ libName, level })\r\n                        , libName\r\n                        , libActions\r\n                        , libActionMap\r\n                        , libActionNames\r\n                        , appName\r\n                        , createActionType\r\n                        , typedLibActions\r\n                        , libActionTypes\r\n                        , getActionContextByName\r\n                        , getActionContextByType\r\n                        , getLibActionContextByOrdinal\r\n                        }\r\n\r\n\r\n    const appContext = configureAppContext(libContext)(appOpts)\r\n    if(process.env.NODE_ENV !== 'production') {\r\n      validateContext(libContext, appContext)\r\n    }\r\n\r\n    return Object.assign( appContext, libContext, { get initialState() { return configureInitialState(libContext)(appContext) }\r\n                                                  })\r\n  }\r\n}\r\n"
   },
   {
-    "__docId__": 10,
+    "__docId__": 11,
     "kind": "typedef",
     "static": true,
     "variation": null,
@@ -250,7 +271,7 @@
     }
   },
   {
-    "__docId__": 11,
+    "__docId__": 12,
     "kind": "typedef",
     "static": true,
     "variation": null,
@@ -268,7 +289,7 @@
     }
   },
   {
-    "__docId__": 12,
+    "__docId__": 13,
     "kind": "typedef",
     "static": true,
     "variation": null,
@@ -298,7 +319,7 @@
     }
   },
   {
-    "__docId__": 13,
+    "__docId__": 14,
     "kind": "typedef",
     "static": true,
     "variation": null,
@@ -348,7 +369,7 @@
     }
   },
   {
-    "__docId__": 14,
+    "__docId__": 15,
     "kind": "typedef",
     "static": true,
     "variation": null,
@@ -366,7 +387,7 @@
     }
   },
   {
-    "__docId__": 15,
+    "__docId__": 16,
     "kind": "typedef",
     "static": true,
     "variation": null,
@@ -384,7 +405,7 @@
     }
   },
   {
-    "__docId__": 16,
+    "__docId__": 17,
     "kind": "typedef",
     "static": true,
     "variation": null,
@@ -414,7 +435,7 @@
     }
   },
   {
-    "__docId__": 17,
+    "__docId__": 18,
     "kind": "typedef",
     "static": true,
     "variation": null,
@@ -433,7 +454,7 @@
     }
   },
   {
-    "__docId__": 18,
+    "__docId__": 19,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -454,7 +475,7 @@
     }
   },
   {
-    "__docId__": 19,
+    "__docId__": 20,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -475,7 +496,7 @@
     }
   },
   {
-    "__docId__": 20,
+    "__docId__": 21,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -495,7 +516,7 @@
     }
   },
   {
-    "__docId__": 21,
+    "__docId__": 22,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -515,27 +536,6 @@
     }
   },
   {
-    "__docId__": 22,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "validateAppContext",
-    "memberof": "lib/context.js",
-    "longname": "lib/context.js~validateAppContext",
-    "access": null,
-    "export": false,
-    "importPath": "redux-addons/lib/context.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 86,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
     "__docId__": 23,
     "kind": "variable",
     "static": true,
@@ -548,7 +548,7 @@
     "importPath": "redux-addons/lib/context.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 91,
+    "lineNumber": 89,
     "undocument": true,
     "type": {
       "types": [
@@ -569,7 +569,7 @@
     "importPath": "redux-addons/lib/context.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 93,
+    "lineNumber": 91,
     "undocument": true,
     "type": {
       "types": [
@@ -590,7 +590,7 @@
     "importPath": "redux-addons/lib/context.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 113,
+    "lineNumber": 107,
     "undocument": true,
     "type": {
       "types": [
@@ -611,7 +611,7 @@
     "importPath": "redux-addons/lib/context.js",
     "importStyle": "configureContext",
     "description": null,
-    "lineNumber": 126,
+    "lineNumber": 118,
     "undocument": true,
     "params": [
       {

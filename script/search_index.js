@@ -24,12 +24,6 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
-    "redux-addons/lib/actions.js~actiondefinition",
-    "variable/index.html#static-variable-actionDefinition",
-    "<span>actionDefinition</span> <span class=\"search-result-import-path\">redux-addons/lib/actions.js</span>",
-    "variable"
-  ],
-  [
     "redux-addons/lib/store.js~bisectstore",
     "variable/index.html#static-variable-bisectStore",
     "<span>bisectStore</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
@@ -114,9 +108,21 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "redux-addons/lib/actions.js~createactionblueprint",
+    "variable/index.html#static-variable-createActionBlueprint",
+    "<span>createActionBlueprint</span> <span class=\"search-result-import-path\">redux-addons/lib/actions.js</span>",
+    "variable"
+  ],
+  [
     "redux-addons/lib/store.js~createactionmultiplexer",
     "variable/index.html#static-variable-createActionMultiplexer",
     "<span>createActionMultiplexer</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
+    "variable"
+  ],
+  [
+    "redux-addons/lib/actions.js~createdelayedactionblueprint",
+    "variable/index.html#static-variable-createDelayedActionBlueprint",
+    "<span>createDelayedActionBlueprint</span> <span class=\"search-result-import-path\">redux-addons/lib/actions.js</span>",
     "variable"
   ],
   [
