@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">lib/store.js | redux-addons API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/cchamberlain/redux-addons" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-configureContext">configureContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-configureDispatcher">configureDispatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-configure">configure</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-configureReducer">configureReducer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureAction">configureAction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureActionDispatcher">configureActionDispatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createActionBlueprint">createActionBlueprint</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createDelayedActionBlueprint">createDelayedActionBlueprint</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ACTION_PREFIX">ACTION_PREFIX</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-IDLEMONITOR_ACTIVITY">IDLEMONITOR_ACTIVITY</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LIB_NAME">LIB_NAME</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ROOT_STATE_KEY">ROOT_STATE_KEY</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-getActions">getActions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-getActiveEvents">getActiveEvents</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-getLevel">getLevel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-getThresholds">getThresholds</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-getUseFastState">getUseFastState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-getUseLocalState">getUseLocalState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-getUseWebRTCState">getUseWebRTCState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-getUseWebSocketsState">getUseWebSocketsState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createLogger">createLogger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createReducer">createReducer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-bisectStore">bisectStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureBrowserStateAccessor">configureBrowserStateAccessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureBrowserStore">configureBrowserStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureLocalStateAccessor">configureLocalStateAccessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureLocalStore">configureLocalStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureReducer">configureReducer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureSessionStateAccessor">configureSessionStateAccessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureSessionStore">configureSessionStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createActionMultiplexer">createActionMultiplexer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createJSONLocalStore">createJSONLocalStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createJSONSessionStore">createJSONSessionStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createLocalStore">createLocalStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createMergingReducer">createMergingReducer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createNoopStore">createNoopStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createSessionStore">createSessionStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createStoreMultiplexer">createStoreMultiplexer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-selectState">selectState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-toConstCase">toConstCase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-validateOpts">validateOpts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-AppOpts">AppOpts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-AppValidator">AppValidator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-CreateContext">CreateContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-LibAction">LibAction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-LibActions">LibActions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-LibContext">LibContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-LibContext">LibContext</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-LibOpts">LibOpts</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/store.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { assert } from &apos;chai&apos;
+import { createAction } from &apos;redux-actions&apos;
+
+const noop = () =&gt; {}
+
+/** Formats a string as CONST_CASE */
+export const toConstCase = value =&gt; value.replace(/[- ]/, &apos;_&apos;).toUpperCase()
+
+/**
+ * Creates a store with all functions returning noop
+ * @return {Object}     Noop store object with noop dispatch, getState, subscribe, and replaceReducer functions.
+ */
+export const createNoopStore = () =&gt; ({ dispatch: noop, subscribe: noop, getState: noop, replaceReducer: noop })
+
+
+export const configureSessionStateAccessor = opts =&gt; configureBrowserStateAccessor(sessionStorage, opts)
+export const configureLocalStateAccessor = opts =&gt; configureBrowserStateAccessor(localStorage, opts)
+
+/**
+ * Configures an accessor object with getState and setState functions for interacting with browser storage.
+ * @param  {Object}   browserStorage    The storage medium to use (sessionStorage / localStorage).
+ * @param  {String}   options.prefix    The prefix to use for state keys.
+ * @param  {Boolean}  options.useJSON   Enables serializing to a single JSON string and uses a single storage key.
+ * @param  {Function} options.formatKey The formatter to use for storage keys.
+ * @return {Function}                   Thunk taking initialState and returning initialized getState and setState functions.
+ */
+export const configureBrowserStateAccessor = (browserStorage, { prefix = &apos;REDUX_BROWSER&apos;
+                                                              , useJSON = false
+                                                              , formatKey = (prefix, key = &apos;STATE&apos;) =&gt; `${toConstCase(prefix)}_${toConstCase(key)}`
+                                                              } = {}) =&gt; {
+  assert.ok(browserStorage, &apos;browserStorage is required (localStorage or sessionStorage)&apos;)
+  assert(typeof browserStorage === &apos;object&apos;, &apos;browserStorage must be an object&apos;)
+  assert(typeof browserStorage.setItem === &apos;function&apos;, &apos;browserStorage have same setter interface as localStorage / sessionStorage&apos;)
+  assert(typeof browserStorage.getItem === &apos;function&apos;, &apos;browserStorage have same getter interface as localStorage / sessionStorage&apos;)
+
+  const stateName = formatKey(prefix)
+
+  /** Will create the stateAccessor and initialize it with initialState */
+  return initialState =&gt; {
+    assert.ok(initialState, &apos;initialState is required.&apos;)
+    assert(typeof initialState === &apos;object&apos;, &apos;initialState must be an object.&apos;)
+    const keyMap = useJSON ? noop() : new Map(Object.keys(initialState).map(x =&gt; [x, formatKey(prefix, x)]))
+    const setState = (useJSON
+      ? newState =&gt; {
+          /** Serialize to a single JSON string and serialize that. */
+          browserStorage.setItem(stateName, JSON.stringify(newState))
+        }
+      : newState =&gt; {
+        /** Set individual storage keys. */
+        for(let [key, storageKey] of keyMap.entries())
+          browserStorage.setItem(storageKey, newState[key])
+        }
+      )
+
+    const getState = (useJSON
+      ? () =&gt; {
+          const serializedState = browserStorage.getItem(stateName)
+          if(serializedState)
+            return JSON.parse(serializedState)
+        }
+      : () =&gt; {
+          let newState = {}
+          for(let [key, storageKey] of keyMap.entries())
+            newState[key] = browserStorage.getItem(storageKey)
+          return newState
+        }
+      )
+    setState(initialState)
+    return { setState, getState }
+  }
+}
+
+/** Asserts that createBrowserStore options are valid. */
+const assertBrowserStore = (reducer, initialState, createBrowserStateAccessor) =&gt; {
+  assert.ok(reducer, &apos;reducer is required&apos;)
+  assert(typeof reducer === &apos;function&apos;, &apos;reducer must be a function&apos;)
+  assert.ok(initialState, &apos;initialState is required&apos;)
+  assert(typeof initialState === &apos;object&apos;, &apos;initialState must be an object&apos;)
+  assert.ok(createBrowserStateAccessor, &apos;createBrowserStateAccessor is required&apos;)
+  assert(typeof createBrowserStateAccessor === &apos;function&apos;, &apos;createBrowserStateAccessor must be a function&apos;)
+}
+
+/**
+ * Works the same as createStore but uses browserStorage as persistence medium.
+ * @param  {!function}  localReducer - The reducer to create new state to be persisted.
+ * @param  {!Object}    initialState - Initial state to create in local storage (REQUIRED).
+ * @param  {String}     prefix - The local storage namespace to use.
+ * @return {Object}     Local store object with dispatch, getState, subscribe, and replaceReducer functions.
+ */
+export const configureBrowserStore = createBrowserStateAccessor =&gt; (reducer, initialState) =&gt; {
+  if(process.env.NODE_ENV !== &apos;production&apos;)
+    assertBrowserStore(reducer, initialState, createBrowserStateAccessor)
+
+  const { getState, setState } = createBrowserStateAccessor(initialState)
+  let currentReducer = reducer
+  let listeners = []
+  let isDispatching = false
+  const subscribe = listener =&gt; {
+    listeners.push(listener)
+    return () =&gt; {
+      let index = listeners.indexOf(listener)
+      listeners.splice(index, 1)
+    }
+  }
+  const dispatch = action =&gt; {
+    if(isDispatching)
+      throw new Error(&apos;Browser reducers may not dispatch actions.&apos;)
+    try {
+      isDispatching = true
+      setState(currentReducer(getState(), action))
+    } finally {
+      isDispatching = false
+    }
+    listeners.slice().forEach(listener =&gt; listener())
+    return action
+  }
+  const replaceReducer = nextReducer =&gt; {
+    currentReducer = nextReducer
+    dispatch({ type: &apos;@@redux-browser/INIT&apos; })
+  }
+  dispatch({ type: &apos;@@redux-browser/INIT&apos; })
+  return  { dispatch, subscribe, getState, replaceReducer }
+}
+
+/** Configures a createSessionStore thunk that returns the same interface as redux createStore */
+export const configureSessionStore = opts =&gt; {
+  const createSessionStateAccessor = configureSessionStateAccessor(opts)
+  return configureBrowserStore(createSessionStateAccessor)
+}
+
+/** Configures a createLocalStore thunk that returns the same interface as redux createStore */
+export const configureLocalStore = opts =&gt; {
+  const createLocalStateAccessor = configureLocalStateAccessor(opts)
+  return configureBrowserStore(createLocalStateAccessor)
+}
+
+/**
+ * Creates sessionStorage interfacing component that implements redux store interface.
+ * Uses one sessionStorage key per state node. Only supports primitive state keys.
+ */
+export const createSessionStore = (reducer, initialState) =&gt; configureSessionStore({ useJSON: false })(reducer, initialState)
+
+/**
+ * Creates sessionStorage interfacing component that implements redux store interface.
+ * Serializes / Deserializes state object to and from JSON. Supports nested structures.
+ */
+export const createJSONSessionStore = (reducer, initialState) =&gt; configureSessionStore({ useJSON: true })(reducer, initialState)
+
+/**
+ * Creates localStorage interfacing component that implements redux store interface.
+ * Uses one localStorage key per state node. Only supports primitive state keys.
+ */
+export const createLocalStore = (reducer, initialState) =&gt; configureLocalStore({ useJSON: false })(reducer, initialState)
+
+/**
+ * Creates localStorage interfacing component that implements redux store interface.
+ * Serializes / Deserializes state object to and from JSON. Supports nested structures.
+ */
+export const createJSONLocalStore = (reducer, initialState) =&gt; configureLocalStore({ useJSON: true })(reducer, initialState)
+
+/**
+ * Configures a reducer that reduces action to a state, then optionally merges with previous state for subscribed action types.
+ * @param  {function} actionReducer Map the action to the object that will be merged to state.
+ * @param {bool}     mergeState    Defines whether the reducer results should be merged with the previous state.
+ * @return {Object}                 New state object.
+ */
+export const configureReducer = (actionReducer, mergeState = true) =&gt; (...subscribeTypes) =&gt; (state, action) =&gt; subscribeTypes.includes(action.type) ? (mergeState ? Object.assign({}, state, actionReducer(action)) : actionReducer(action)) : state
+
+/**
+ * Creates a reducer that merged payload with state for matching subscribe types.
+ * @param  {String[]} subscribeTypes   Action types to subscribe reducer to.
+ */
+export const createMergingReducer = configureReducer(action =&gt; action.payload, true)
+
+/**
+ * Returns object implementing redux store interface whose getState method selects a sub tree of the overall state.
+ * Useful for library components that embed state in a subnode of consumer apps redux state
+ * @param  {Object}    store      A store to bisect
+ * @param  {...String} selectKeys The selection path to use with getState
+ * @return {Object}               A sub store implementing redux store interface
+ */
+export const bisectStore = (store, ...selectKeys) =&gt; {
+  assert.ok(store, &apos;store must exist&apos;)
+  assert.ok(store.dispatch, &apos;store must define dispatch&apos;)
+  assert.ok(store.getState, &apos;store must define getState&apos;)
+  assert(selectKeys.length &gt; 0, &apos;must define one or more keys to select on&apos;)
+
+  return  { dispatch: action =&gt; store.dispatch(action)
+          , subscribe: listener =&gt; store.subscribe(listener)
+          , getState: () =&gt; selectState(selectKeys, store.getState())
+          }
+}
+
+/** Selects a sub state from a state tree by path. */
+export const selectState = (selectKeys, state, defaultValue) =&gt; {
+  assert(Array.isArray(selectKeys), &apos;selectKeys must be an array.&apos;)
+  //assert(selectKeys.length &gt; 0, &apos;must specify a selection path&apos;)
+  assert.ok(state, &apos;state is required&apos;)
+  let result = state
+  while(selectKeys.length &gt; 0 &amp;&amp; result)
+    result = state[selectKeys.shift()]
+  return result || defaultValue
+}
+
+
+
+
+//actionDefinitionMapping === [actionName, actionDefinition]
+// actionDefinition === { type, payloadCreactor, ?metaCreator }
+
+//payloadCreator === (actionArgs =&gt; payload)
+//metaCreator === (actionArgs =&gt; meta)
+//const action = createAction(ACTION_TYPE, payloadCreator, metaCreator)(actionArgs)
+
+
+const creatorOverride = props =&gt; creator =&gt; args =&gt; Object.assign({}, creator(args), props)
+
+const delayOverride = delay =&gt; overrideCreator({ delay })
+
+
+// TODO: MOVE THIS TO ACTIONS
+export const createActionMultiplexer = actionMapping =&gt; {
+  assert.ok(actionMapping, &apos;actionMapping is required&apos;)
+  assert(Array.isArray(actionMapping), &apos;actionMapping must be an array&apos;)
+  assert(actionMapping.every(x =&gt; Array.isArray(x) &amp;&amp; x.length === 2), &apos;actionMapping must be an array of [&lt;name&gt;, &lt;store&gt;] arrays&apos;)
+
+  const actionMap = new Map(actionMapping)
+
+  const translators = ( { delay: delay =&gt; args =&gt; Object.assign({}, args, { delay })
+                        } )
+
+
+  const translateCreator = creator =&gt; translate =&gt; args =&gt; translate(typeof creator === &apos;function&apos; ? creator(args) : creator, args)
+
+  const identityTranslator = identity =&gt; identity
+
+  const selectActionCreator = (actionName, { translatePayload = identityTranslator, translateMeta = identityTranslator } = {}) =&gt; {
+    const actionDefinition = actionMap.get(actionName)
+    assert.ok(actionDefinition, `action definition for actionName ${actionName} must be configured in createActionMultiplexer`)
+    const { type, payloadCreator, metaCreator } = actionDefinition
+    assert.ok(type, `action type must be defined for actionName =&gt; ${actionName}`)
+    assert(typeof type === &apos;string&apos;, `action type must be string for actionName =&gt; ${actionName}`)
+    return createAction ( type
+                        , translateCreator(payloadCreator)(translatePayload)
+                        , translateCreator(metaCreator)(translateMeta)
+                        )
+  }
+
+  const selectDelayedActionCreator = (actionName, delay) =&gt; selectActionCreator(actionName, { translateMeta: translators.delay(delay) })
+
+  const selectAction = (actionName, args) =&gt; selectActionCreator(actionName)(args)
+
+  return { selectActionCreator, selectDelayedActionCreator, selectAction }
+}
+
+
+
+
+/**
+ * createStoreMultiplexer([[&apos;lib&apos;, libStore], [&apos;fast&apos;, fastStore], [&apos;session&apos;, sessionStore], [&apos;local&apos;, localStore]])
+ * Takes in an ordered mapping of names to stores and reduces to a redux store compatible interface that can dispatch and getState to all stores or specific ones.
+ * @param  {Array} storeMapping  The mapping of store names to store references.
+ * @return {Object}              An object that can dispatch and getState to all stores or each individually.
+ */
+export const createStoreMultiplexer = (storeMapping, actionMultiplexer) =&gt; {
+  assert.ok(storeMapping, &apos;storeMapping is required&apos;)
+  assert(Array.isArray(storeMapping), &apos;storeMapping must be an array&apos;)
+  assert(storeMapping.every(x =&gt; Array.isArray(x) &amp;&amp; x.length === 2), &apos;storeMapping must be an array of [&lt;name&gt;, &lt;store&gt;] arrays&apos;)
+
+  const storeMap = new Map(storeMapping)
+  const mapReduceStores = operation =&gt; {
+    let result = {}
+    for(let [name, store] of storeMap.entries())
+      result[name] = operation(store)
+    return result
+  }
+
+  const storesLiteral = storeMapping.reduce((prev, [name, store]) =&gt; {
+    prev[name] = store
+    return prev
+  }, {})
+
+
+  const createActionDispatcher = actionName =&gt; ({ delay = 0 } = {}) =&gt; {
+    return args =&gt; {
+      if(delay &lt;= 0)
+        return dispatch(actionMultiplexer.selectActionCreator(actionName)(args))
+      return dispatch(actionMultiplexer.selectDelayedActionCreator(actionName, delay)(args))
+    }
+  }
+
+  const dispatchAction = (actionName, args, { delay = 0 } = {}) =&gt; createActionDispatcher(actionName)({ delay })(args)
+
+  const dispatch = action =&gt; mapReduceStores(store =&gt; store.dispatch(action))
+  const getState = () =&gt; mapReduceStores(store =&gt; store.getState())
+  const selectFirst = (...names) =&gt; {
+    for(let name of names) {
+      if(storeMap.has(name))
+        return storeMap.get(name)
+    }
+    throw new Error(`None of the requested stores exist in storeMapping | configured =&gt; ${JSON.stringify(storeMapping.map(x =&gt; x[0]))} requested =&gt; ${JSON.stringify(names)}`)
+  }
+  const select = (...names) =&gt; names.filter(x =&gt; storeMap.has(x)).map(x =&gt; storeMap.get(x))
+  return  { ...storesLiteral
+          , dispatch
+          , getState
+          , selectFirst
+          , select
+          , createActionDispatcher
+          , dispatchAction
+          }
+}
+
+
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.6)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
