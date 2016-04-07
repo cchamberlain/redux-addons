@@ -1,79 +1,30 @@
 {
-  "coverage": "56.09%",
-  "expectCount": 41,
-  "actualCount": 23,
+  "coverage": "77.27%",
+  "expectCount": 22,
+  "actualCount": 17,
   "files": {
-    "lib/constants.js": {
-      "expectCount": 4,
-      "actualCount": 3,
-      "undocumentLines": [
-        9
-      ]
-    },
     "lib/store.js": {
       "expectCount": 18,
       "actualCount": 15,
       "undocumentLines": [
         17,
         16,
-        222
-      ]
-    },
-    "lib/index.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        9
-      ]
-    },
-    "lib/actions.js": {
-      "expectCount": 4,
-      "actualCount": 3,
-      "undocumentLines": [
-        20
+        312
       ]
     },
     "lib/context.js": {
       "expectCount": 1,
       "actualCount": 0,
       "undocumentLines": [
-        118
+        86
       ]
     },
-    "lib/dispatcher.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        8
-      ]
-    },
-    "lib/reducer.js": {
+    "lib/actionBlueprint.js": {
       "expectCount": 2,
       "actualCount": 2,
       "undocumentLines": []
     },
     "lib/log.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        3
-      ]
-    },
-    "lib/defaults.js": {
-      "expectCount": 8,
-      "actualCount": 0,
-      "undocumentLines": [
-        12,
-        18,
-        27,
-        25,
-        20,
-        21,
-        22,
-        23
-      ]
-    },
-    "lib/validate.js": {
       "expectCount": 1,
       "actualCount": 0,
       "undocumentLines": [
