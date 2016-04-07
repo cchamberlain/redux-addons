@@ -164,7 +164,13 @@ export const createJSONLocalStore = (reducer, initialState) => configureLocalSto
  * @param {bool}     mergeState    Defines whether the reducer results should be merged with the previous state.
  * @return {Object}                 New state object.
  */
-export const configureReducer = (actionReducer, mergeState = true) => (...subscribeTypes) => (state, action) => subscribeTypes.includes(action.type) ? (mergeState ? Object.assign({}, state, actionReducer(action)) : actionReducer(action)) : state
+export const configureReducer = (actionReducer, mergeState = true) => (...subscribeTypes) => (state, action) => {
+  if(subscribeTypes.includes(action.type)) {
+    console.warn(`autoconfigured reducer subscribe type match => ${action.type} in ${JSON.stringify(subscribeTypes)}`)
+    return mergeState ? Object.assign({}, state, actionReducer(action)) : actionReducer(action)
+  }
+  return state
+}
 
 /**
  * Creates a reducer that merged payload with state for matching subscribe types.
@@ -194,13 +200,96 @@ export const bisectStore = (store, ...selectKeys) => {
 /** Selects a sub state from a state tree by path. */
 export const selectState = (selectKeys, state, defaultValue) => {
   assert(Array.isArray(selectKeys), 'selectKeys must be an array.')
-  //assert(selectKeys.length > 0, 'must specify a selection path')
+  assert(selectKeys.length > 0, 'must specify a selection path')
   assert.ok(state, 'state is required')
   let result = state
-  while(selectKeys.length > 0 && result)
-    result = state[selectKeys.shift()]
+  for(let selectKey of selectKeys) {
+    result = state[selectKey]
+    if(!result)
+      break
+  }
   return result || defaultValue
 }
+
+
+
+
+/**
+ * createStoreMultiplexer([['lib', libStore], ['fast', fastStore], ['session', sessionStore], ['local', localStore]])
+ * Takes in an ordered mapping of names to stores and reduces to a redux store compatible interface that can dispatch and getState to all stores or specific ones.
+ * @param  {Array} storeMapping  The mapping of store names to store references.
+ * @return {Object}              An object that can dispatch and getState to all stores or each individually.
+ */
+export const createStoreMultiplexer = (storeMapping) => {
+  assert.ok(storeMapping, 'storeMapping is required')
+  assert(Array.isArray(storeMapping), 'storeMapping must be an array')
+  assert(storeMapping.every(x => Array.isArray(x) && x.length === 2), 'storeMapping must be an array of [<name>, <store>] arrays')
+
+  const storeMap = new Map(storeMapping)
+  const mapReduceStores = operation => {
+    let result = {}
+    for(let [name, store] of storeMap.entries())
+      result[name] = operation(store)
+    return result
+  }
+
+  const storesLiteral = storeMapping.reduce((prev, [name, store]) => {
+    prev[name] = store
+    return prev
+  }, {})
+
+  const dispatch = action => mapReduceStores(store => store.dispatch(action))
+  const getState = () => mapReduceStores(store => store.getState())
+  const selectFirst = (...names) => {
+    for(let name of names) {
+      if(storeMap.has(name))
+        return storeMap.get(name)
+    }
+    throw new Error(`None of the requested stores exist in storeMapping | configured => ${JSON.stringify(storeMapping.map(x => x[0]))} requested => ${JSON.stringify(names)}`)
+  }
+  const select = (...names) => names.filter(x => storeMap.has(x)).map(x => storeMap.get(x))
+  return  { ...storesLiteral
+          , dispatch
+          , getState
+          , selectFirst
+          , select
+          }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -216,6 +305,7 @@ export const selectState = (selectKeys, state, defaultValue) => {
 const creatorOverride = props => creator => args => Object.assign({}, creator(args), props)
 
 const delayOverride = delay => overrideCreator({ delay })
+
 
 
 // TODO: MOVE THIS TO ACTIONS
@@ -252,63 +342,3 @@ export const createActionMultiplexer = actionMapping => {
 
   return { selectActionCreator, selectDelayedActionCreator, selectAction }
 }
-
-
-
-
-/**
- * createStoreMultiplexer([['lib', libStore], ['fast', fastStore], ['session', sessionStore], ['local', localStore]])
- * Takes in an ordered mapping of names to stores and reduces to a redux store compatible interface that can dispatch and getState to all stores or specific ones.
- * @param  {Array} storeMapping  The mapping of store names to store references.
- * @return {Object}              An object that can dispatch and getState to all stores or each individually.
- */
-export const createStoreMultiplexer = (storeMapping, actionMultiplexer) => {
-  assert.ok(storeMapping, 'storeMapping is required')
-  assert(Array.isArray(storeMapping), 'storeMapping must be an array')
-  assert(storeMapping.every(x => Array.isArray(x) && x.length === 2), 'storeMapping must be an array of [<name>, <store>] arrays')
-
-  const storeMap = new Map(storeMapping)
-  const mapReduceStores = operation => {
-    let result = {}
-    for(let [name, store] of storeMap.entries())
-      result[name] = operation(store)
-    return result
-  }
-
-  const storesLiteral = storeMapping.reduce((prev, [name, store]) => {
-    prev[name] = store
-    return prev
-  }, {})
-
-
-  const createActionDispatcher = actionName => ({ delay = 0 } = {}) => {
-    return args => {
-      if(delay <= 0)
-        return dispatch(actionMultiplexer.selectActionCreator(actionName)(args))
-      return dispatch(actionMultiplexer.selectDelayedActionCreator(actionName, delay)(args))
-    }
-  }
-
-  const dispatchAction = (actionName, args, { delay = 0 } = {}) => createActionDispatcher(actionName)({ delay })(args)
-
-  const dispatch = action => mapReduceStores(store => store.dispatch(action))
-  const getState = () => mapReduceStores(store => store.getState())
-  const selectFirst = (...names) => {
-    for(let name of names) {
-      if(storeMap.has(name))
-        return storeMap.get(name)
-    }
-    throw new Error(`None of the requested stores exist in storeMapping | configured => ${JSON.stringify(storeMapping.map(x => x[0]))} requested => ${JSON.stringify(names)}`)
-  }
-  const select = (...names) => names.filter(x => storeMap.has(x)).map(x => storeMap.get(x))
-  return  { ...storesLiteral
-          , dispatch
-          , getState
-          , selectFirst
-          , select
-          , createActionDispatcher
-          , dispatchAction
-          }
-}
-
-

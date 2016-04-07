@@ -2,6 +2,7 @@ import { assert } from 'chai'
 import { validateOpts } from './validate'
 
 import  { createLogger } from './log'
+import { createBlueprintsTranslator } from './actionBlueprint'
 
 
 /**
@@ -48,21 +49,13 @@ import  { createLogger } from './log'
 
 const noop = () => {}
 const cleanActionName = name => name.toUpperCase().replace(/-+\s+/, '_')
-const configureActionName = libName => appName => actionName => `${cleanActionName(libName)}_${cleanActionName(appName)}_${cleanActionName(actionName)}`
 
 /** Validates library creators options */
 const validateLibOpts = libOptsRaw => {
   assert.ok(libOptsRaw, 'libOpts definition is required')
-  const { libName, libActions, validateContext, configureAppContext, configureInitialState } = libOptsRaw
+  const { libName, validateContext, configureAppContext, configureInitialState } = libOptsRaw
   assert(typeof libName === 'string', 'libName must be a string')
   assert(libName.length > 0, 'libName must not be empty')
-
-  assert.ok(libActions, 'libActions must exist')
-  assert(Array.isArray(libActions), 'libActions must be an array')
-  assert(libActions.every(x => Array.isArray(x)), 'libActions must be an array of an array')
-  assert(libActions.every(x => x.length === 2), 'every item in libActions must have length 2')
-  assert(libActions.every(x => typeof x[0] === 'string'), 'every item in libActions must have first ordinal type string action name')
-  assert(libActions.every(x => typeof x[1] === 'object'), 'every item in libActions must have second ordinal type object actionContext')
 
   assert.ok(validateContext, 'validateContext must exist')
   assert(typeof validateContext === 'function', 'validateContext must be a function')
@@ -82,73 +75,33 @@ const validateAppOpts = appOptsRaw => {
   assert(typeof appName === 'string', 'appName opt must be a string')
   assert(appName.length > 0, 'appName opt must not be empty')
 }
-
-
-
-
 const isDev = process.env.NODE_ENV !== 'production'
 
-const normalizeLibOpts = libOptsRaw => {
-  if(isDev) validateLibOpts(libOptsRaw)
-  const { libName, libActions, validateContext, configureAppContext, configureInitialState } = libOptsRaw
 
-  const libActionMap = new Map(libActions)
-  const libActionNames = libActions.map(x => x[0])
-  return  { libName
-          , libActions
-          , libActionMap
-          , libActionNames
-          , validateContext
-          , configureAppContext
-          , configureInitialState
-          }
-
-}
-const normalizeAppOpts = appOptsRaw => {
-  if(isDev) validateAppOpts(appOptsRaw)
-  const { appName } = appOptsRaw
-  return  { ...appOptsRaw
-          }
-}
 /*
 import configureContext from 'redux-addons/context'
 const context = configureContext(libOpts)(appOpts)
 const {  } = context
  */
-export default function configureContext(libOptsRaw) {
-  const libOpts = normalizeLibOpts(libOptsRaw)
-  const { libName, libActions, libActionMap, libActionNames, validateContext, configureAppContext, configureInitialState } = libOpts
-  return appOptsRaw => {
-    const appOpts = normalizeAppOpts(appOptsRaw)
+export default function configureContext(libOpts) {
+  if(isDev) validateLibOpts(libOpts)
+  const { libName, validateContext, configureAppContext, configureInitialState } = libOpts
+  return appOpts => {
+    if(isDev) validateAppOpts(appOpts)
     const { appName, level } = appOpts
 
     const createActionType =  actionName => `${cleanActionName(libName)}_${cleanActionName(appName)}_${cleanActionName(actionName)}`
-    const typedLibActions = libActions.map(x => [createActionType(x[0]), x[1]])
-    const libActionTypes = typedLibActions.map(x => x[0])
-
-    const getActionContextByName = actionName => actionMap.get(actionName)
-    const getActionContextByType = actionType => typedActionMap.get(actionType)
-    const getLibActionContextByOrdinal = ordinal => libActions[ordinal][1]
+    const translateBlueprints = createBlueprintsTranslator(createActionType)
 
     const libContext =  { log: createLogger({ libName, level })
                         , libName
-                        , libActions
-                        , libActionMap
-                        , libActionNames
                         , appName
                         , createActionType
-                        , typedLibActions
-                        , libActionTypes
-                        , getActionContextByName
-                        , getActionContextByType
-                        , getLibActionContextByOrdinal
+                        , translateBlueprints
                         }
 
-
     const appContext = configureAppContext(libContext)(appOpts)
-    if(process.env.NODE_ENV !== 'production') {
-      validateContext(libContext, appContext)
-    }
+    if(isDev) validateContext(libContext, appContext)
 
     return Object.assign( appContext, libContext, { get initialState() { return configureInitialState(libContext)(appContext) }
                                                   })
