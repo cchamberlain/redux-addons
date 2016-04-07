@@ -1,50 +1,8 @@
 window.esdocSearchIndex = [
   [
-    "redux-addons/lib/constants.js~action_prefix",
-    "variable/index.html#static-variable-ACTION_PREFIX",
-    "<span>ACTION_PREFIX</span> <span class=\"search-result-import-path\">redux-addons/lib/constants.js</span>",
-    "variable"
-  ],
-  [
-    "redux-addons/lib/constants.js~idlemonitor_activity",
-    "variable/index.html#static-variable-IDLEMONITOR_ACTIVITY",
-    "<span>IDLEMONITOR_ACTIVITY</span> <span class=\"search-result-import-path\">redux-addons/lib/constants.js</span>",
-    "variable"
-  ],
-  [
-    "redux-addons/lib/constants.js~lib_name",
-    "variable/index.html#static-variable-LIB_NAME",
-    "<span>LIB_NAME</span> <span class=\"search-result-import-path\">redux-addons/lib/constants.js</span>",
-    "variable"
-  ],
-  [
-    "redux-addons/lib/constants.js~root_state_key",
-    "variable/index.html#static-variable-ROOT_STATE_KEY",
-    "<span>ROOT_STATE_KEY</span> <span class=\"search-result-import-path\">redux-addons/lib/constants.js</span>",
-    "variable"
-  ],
-  [
     "redux-addons/lib/store.js~bisectstore",
     "variable/index.html#static-variable-bisectStore",
     "<span>bisectStore</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
-    "variable"
-  ],
-  [
-    "redux-addons~configure",
-    "function/index.html#static-function-configure",
-    "<span>configure</span> <span class=\"search-result-import-path\">redux-addons</span>",
-    "function"
-  ],
-  [
-    "redux-addons/lib/actions.js~configureaction",
-    "variable/index.html#static-variable-configureAction",
-    "<span>configureAction</span> <span class=\"search-result-import-path\">redux-addons/lib/actions.js</span>",
-    "variable"
-  ],
-  [
-    "redux-addons/lib/actions.js~configureactiondispatcher",
-    "variable/index.html#static-variable-configureActionDispatcher",
-    "<span>configureActionDispatcher</span> <span class=\"search-result-import-path\">redux-addons/lib/actions.js</span>",
     "variable"
   ],
   [
@@ -66,12 +24,6 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "redux-addons/lib/dispatcher.js~configuredispatcher",
-    "function/index.html#static-function-configureDispatcher",
-    "<span>configureDispatcher</span> <span class=\"search-result-import-path\">redux-addons/lib/dispatcher.js</span>",
-    "function"
-  ],
-  [
     "redux-addons/lib/store.js~configurelocalstateaccessor",
     "variable/index.html#static-variable-configureLocalStateAccessor",
     "<span>configureLocalStateAccessor</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
@@ -82,12 +34,6 @@ window.esdocSearchIndex = [
     "variable/index.html#static-variable-configureLocalStore",
     "<span>configureLocalStore</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
     "variable"
-  ],
-  [
-    "redux-addons/lib/reducer.js~configurereducer",
-    "function/index.html#static-function-configureReducer",
-    "<span>configureReducer</span> <span class=\"search-result-import-path\">redux-addons/lib/reducer.js</span>",
-    "function"
   ],
   [
     "redux-addons/lib/store.js~configurereducer",
@@ -108,9 +54,9 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
-    "redux-addons/lib/actions.js~createactionblueprint",
+    "redux-addons/lib/actionblueprint.js~createactionblueprint",
     "variable/index.html#static-variable-createActionBlueprint",
-    "<span>createActionBlueprint</span> <span class=\"search-result-import-path\">redux-addons/lib/actions.js</span>",
+    "<span>createActionBlueprint</span> <span class=\"search-result-import-path\">redux-addons/lib/actionBlueprint.js</span>",
     "variable"
   ],
   [
@@ -120,9 +66,9 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
-    "redux-addons/lib/actions.js~createdelayedactionblueprint",
-    "variable/index.html#static-variable-createDelayedActionBlueprint",
-    "<span>createDelayedActionBlueprint</span> <span class=\"search-result-import-path\">redux-addons/lib/actions.js</span>",
+    "redux-addons/lib/actionblueprint.js~createblueprintstranslator",
+    "variable/index.html#static-variable-createBlueprintsTranslator",
+    "<span>createBlueprintsTranslator</span> <span class=\"search-result-import-path\">redux-addons/lib/actionBlueprint.js</span>",
     "variable"
   ],
   [
@@ -162,12 +108,6 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
-    "redux-addons/lib/reducer.js~createreducer",
-    "variable/index.html#static-variable-createReducer",
-    "<span>createReducer</span> <span class=\"search-result-import-path\">redux-addons/lib/reducer.js</span>",
-    "variable"
-  ],
-  [
     "redux-addons/lib/store.js~createsessionstore",
     "variable/index.html#static-variable-createSessionStore",
     "<span>createSessionStore</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
@@ -180,54 +120,6 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
-    "redux-addons/lib/defaults.js~getactions",
-    "variable/index.html#static-variable-getActions",
-    "<span>getActions</span> <span class=\"search-result-import-path\">redux-addons/lib/defaults.js</span>",
-    "variable"
-  ],
-  [
-    "redux-addons/lib/defaults.js~getactiveevents",
-    "variable/index.html#static-variable-getActiveEvents",
-    "<span>getActiveEvents</span> <span class=\"search-result-import-path\">redux-addons/lib/defaults.js</span>",
-    "variable"
-  ],
-  [
-    "redux-addons/lib/defaults.js~getlevel",
-    "variable/index.html#static-variable-getLevel",
-    "<span>getLevel</span> <span class=\"search-result-import-path\">redux-addons/lib/defaults.js</span>",
-    "variable"
-  ],
-  [
-    "redux-addons/lib/defaults.js~getthresholds",
-    "variable/index.html#static-variable-getThresholds",
-    "<span>getThresholds</span> <span class=\"search-result-import-path\">redux-addons/lib/defaults.js</span>",
-    "variable"
-  ],
-  [
-    "redux-addons/lib/defaults.js~getusefaststate",
-    "variable/index.html#static-variable-getUseFastState",
-    "<span>getUseFastState</span> <span class=\"search-result-import-path\">redux-addons/lib/defaults.js</span>",
-    "variable"
-  ],
-  [
-    "redux-addons/lib/defaults.js~getuselocalstate",
-    "variable/index.html#static-variable-getUseLocalState",
-    "<span>getUseLocalState</span> <span class=\"search-result-import-path\">redux-addons/lib/defaults.js</span>",
-    "variable"
-  ],
-  [
-    "redux-addons/lib/defaults.js~getusewebrtcstate",
-    "variable/index.html#static-variable-getUseWebRTCState",
-    "<span>getUseWebRTCState</span> <span class=\"search-result-import-path\">redux-addons/lib/defaults.js</span>",
-    "variable"
-  ],
-  [
-    "redux-addons/lib/defaults.js~getusewebsocketsstate",
-    "variable/index.html#static-variable-getUseWebSocketsState",
-    "<span>getUseWebSocketsState</span> <span class=\"search-result-import-path\">redux-addons/lib/defaults.js</span>",
-    "variable"
-  ],
-  [
     "redux-addons/lib/store.js~selectstate",
     "variable/index.html#static-variable-selectState",
     "<span>selectState</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
@@ -237,12 +129,6 @@ window.esdocSearchIndex = [
     "redux-addons/lib/store.js~toconstcase",
     "variable/index.html#static-variable-toConstCase",
     "<span>toConstCase</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
-    "variable"
-  ],
-  [
-    "redux-addons/lib/validate.js~validateopts",
-    "variable/index.html#static-variable-validateOpts",
-    "<span>validateOpts</span> <span class=\"search-result-import-path\">redux-addons/lib/validate.js</span>",
     "variable"
   ],
   [
@@ -576,15 +462,9 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "lib/actions.js",
-    "file/lib/actions.js.html",
-    "lib/actions.js",
-    "file"
-  ],
-  [
-    "lib/constants.js",
-    "file/lib/constants.js.html",
-    "lib/constants.js",
+    "lib/actionblueprint.js",
+    "file/lib/actionBlueprint.js.html",
+    "lib/actionBlueprint.js",
     "file"
   ],
   [
@@ -642,51 +522,15 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
-    "lib/defaults.js",
-    "file/lib/defaults.js.html",
-    "lib/defaults.js",
-    "file"
-  ],
-  [
-    "lib/dispatcher.js",
-    "file/lib/dispatcher.js.html",
-    "lib/dispatcher.js",
-    "file"
-  ],
-  [
-    "lib/index.js",
-    "file/lib/index.js.html",
-    "lib/index.js",
-    "file"
-  ],
-  [
     "lib/log.js",
     "file/lib/log.js.html",
     "lib/log.js",
     "file"
   ],
   [
-    "lib/middleware.js",
-    "file/lib/middleware.js.html",
-    "lib/middleware.js",
-    "file"
-  ],
-  [
-    "lib/reducer.js",
-    "file/lib/reducer.js.html",
-    "lib/reducer.js",
-    "file"
-  ],
-  [
     "lib/store.js",
     "file/lib/store.js.html",
     "lib/store.js",
-    "file"
-  ],
-  [
-    "lib/validate.js",
-    "file/lib/validate.js.html",
-    "lib/validate.js",
     "file"
   ]
 ]
