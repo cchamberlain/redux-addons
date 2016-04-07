@@ -33,7 +33,8 @@
     "libraries"
   ],
   "dependencies": {
-    "redux-middleware": "*"
+    "redux-middleware": "*",
+    "redux-blueprint": "*"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
