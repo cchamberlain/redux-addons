@@ -1,28 +1,23 @@
 {
-  "coverage": "77.27%",
-  "expectCount": 22,
-  "actualCount": 17,
+  "coverage": "70.58%",
+  "expectCount": 17,
+  "actualCount": 12,
   "files": {
     "lib/store.js": {
-      "expectCount": 18,
-      "actualCount": 15,
+      "expectCount": 15,
+      "actualCount": 12,
       "undocumentLines": [
         17,
         16,
-        312
+        198
       ]
     },
     "lib/context.js": {
       "expectCount": 1,
       "actualCount": 0,
       "undocumentLines": [
-        86
+        87
       ]
-    },
-    "lib/actionBlueprint.js": {
-      "expectCount": 2,
-      "actualCount": 2,
-      "undocumentLines": []
     },
     "lib/log.js": {
       "expectCount": 1,
