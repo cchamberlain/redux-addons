@@ -2,7 +2,7 @@ import { assert } from 'chai'
 import { validateOpts } from './validate'
 
 import  { createLogger } from './log'
-import { createBlueprintsTranslator } from './actionBlueprint'
+import { translateBlueprintsWith, translateBlueprintTypesWith } from 'redux-blueprint'
 
 
 /**
@@ -78,6 +78,7 @@ const validateAppOpts = appOptsRaw => {
 const isDev = process.env.NODE_ENV !== 'production'
 
 
+
 /*
 import configureContext from 'redux-addons/context'
 const context = configureContext(libOpts)(appOpts)
@@ -90,13 +91,14 @@ export default function configureContext(libOpts) {
     if(isDev) validateAppOpts(appOpts)
     const { appName, level } = appOpts
 
-    const createActionType =  actionName => `${cleanActionName(libName)}_${cleanActionName(appName)}_${cleanActionName(actionName)}`
-    const translateBlueprints = createBlueprintsTranslator(createActionType)
+    const translateBlueprintType =  blueprintType => `${cleanActionName(libName)}_${cleanActionName(appName)}_${cleanActionName(blueprintType)}`
+    const translateBlueprintTypes = translateBlueprintTypesWith(translateBlueprintType)
+    const translateBlueprints = translateBlueprintsWith(translateBlueprintType)
 
     const libContext =  { log: createLogger({ libName, level })
                         , libName
                         , appName
-                        , createActionType
+                        , translateBlueprintTypes
                         , translateBlueprints
                         }
 
