@@ -1,11 +1,5 @@
 window.esdocSearchIndex = [
   [
-    "redux-addons/lib/store.js~bisectstore",
-    "variable/index.html#static-variable-bisectStore",
-    "<span>bisectStore</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
-    "variable"
-  ],
-  [
     "redux-addons/lib/store.js~configurebrowserstateaccessor",
     "variable/index.html#static-variable-configureBrowserStateAccessor",
     "<span>configureBrowserStateAccessor</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
@@ -54,21 +48,9 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
-    "redux-addons/lib/actionblueprint.js~createactionblueprint",
-    "variable/index.html#static-variable-createActionBlueprint",
-    "<span>createActionBlueprint</span> <span class=\"search-result-import-path\">redux-addons/lib/actionBlueprint.js</span>",
-    "variable"
-  ],
-  [
     "redux-addons/lib/store.js~createactionmultiplexer",
     "variable/index.html#static-variable-createActionMultiplexer",
     "<span>createActionMultiplexer</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
-    "variable"
-  ],
-  [
-    "redux-addons/lib/actionblueprint.js~createblueprintstranslator",
-    "variable/index.html#static-variable-createBlueprintsTranslator",
-    "<span>createBlueprintsTranslator</span> <span class=\"search-result-import-path\">redux-addons/lib/actionBlueprint.js</span>",
     "variable"
   ],
   [
@@ -111,18 +93,6 @@ window.esdocSearchIndex = [
     "redux-addons/lib/store.js~createsessionstore",
     "variable/index.html#static-variable-createSessionStore",
     "<span>createSessionStore</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
-    "variable"
-  ],
-  [
-    "redux-addons/lib/store.js~createstoremultiplexer",
-    "variable/index.html#static-variable-createStoreMultiplexer",
-    "<span>createStoreMultiplexer</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
-    "variable"
-  ],
-  [
-    "redux-addons/lib/store.js~selectstate",
-    "variable/index.html#static-variable-selectState",
-    "<span>selectState</span> <span class=\"search-result-import-path\">redux-addons/lib/store.js</span>",
     "variable"
   ],
   [
@@ -460,12 +430,6 @@ window.esdocSearchIndex = [
     "external/index.html",
     "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
     "external"
-  ],
-  [
-    "lib/actionblueprint.js",
-    "file/lib/actionBlueprint.js.html",
-    "lib/actionBlueprint.js",
-    "file"
   ],
   [
     "lib/context.js",

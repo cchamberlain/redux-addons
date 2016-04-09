@@ -33,10 +33,7 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-configureContext">configureContext</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createActionBlueprint">createActionBlueprint</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createBlueprintsTranslator">createBlueprintsTranslator</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createLogger">createLogger</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-bisectStore">bisectStore</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureBrowserStateAccessor">configureBrowserStateAccessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureBrowserStore">configureBrowserStore</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configureLocalStateAccessor">configureLocalStateAccessor</a></span></span></li>
@@ -51,8 +48,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createMergingReducer">createMergingReducer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createNoopStore">createNoopStore</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createSessionStore">createSessionStore</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-createStoreMultiplexer">createStoreMultiplexer</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-selectState">selectState</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-toConstCase">toConstCase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-AppOpts">AppOpts</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-AppValidator">AppValidator</a></span></span></li>
@@ -71,7 +66,7 @@
 import { validateOpts } from &apos;./validate&apos;
 
 import  { createLogger } from &apos;./log&apos;
-import { createBlueprintsTranslator } from &apos;./actionBlueprint&apos;
+import { translateBlueprintsWith, translateBlueprintTypesWith } from &apos;redux-blueprint&apos;
 
 
 /**
@@ -147,6 +142,7 @@ const validateAppOpts = appOptsRaw =&gt; {
 const isDev = process.env.NODE_ENV !== &apos;production&apos;
 
 
+
 /*
 import configureContext from &apos;redux-addons/context&apos;
 const context = configureContext(libOpts)(appOpts)
@@ -159,13 +155,14 @@ export default function configureContext(libOpts) {
     if(isDev) validateAppOpts(appOpts)
     const { appName, level } = appOpts
 
-    const createActionType =  actionName =&gt; `${cleanActionName(libName)}_${cleanActionName(appName)}_${cleanActionName(actionName)}`
-    const translateBlueprints = createBlueprintsTranslator(createActionType)
+    const translateBlueprintType =  blueprintType =&gt; `${cleanActionName(libName)}_${cleanActionName(appName)}_${cleanActionName(blueprintType)}`
+    const translateBlueprintTypes = translateBlueprintTypesWith(translateBlueprintType)
+    const translateBlueprints = translateBlueprintsWith(translateBlueprintType)
 
     const libContext =  { log: createLogger({ libName, level })
                         , libName
                         , appName
-                        , createActionType
+                        , translateBlueprintTypes
                         , translateBlueprints
                         }
 

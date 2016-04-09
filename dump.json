@@ -4,69 +4,16 @@
     "kind": "file",
     "static": true,
     "variation": null,
-    "name": "lib/actionBlueprint.js",
-    "memberof": null,
-    "longname": "lib/actionBlueprint.js",
-    "access": null,
-    "description": null,
-    "lineNumber": 1,
-    "content": "import { assert } from 'chai'\r\nimport { createAction } from 'redux-actions'\r\n/**\r\n * Configures a Flux Standard Action creator injected with the libraries dispatcher and context.\r\n * @example <caption>Exports a Flux Standard Action creator that takes a handler injected with the libraries dispatcher and context.\r\n * export const createSomeUserAction = configureDispatcherAction((dispatcher, context) => dispatcher.action.execute('create-some-user-action'))\r\n * @param  {function} handler: (context, dispatcher) => { ... }\r\n */\r\n//export const createActionDispatcher = context => handler => store => handler(dispatcher(dispatch, getState), context)\r\n\r\n\r\n/** Allows the user of lib to define custom redux actions that an action creator retrieved from at a later time via a type map. */\r\nexport const createActionBlueprint = (actionName, payloadCreator = args => args, metaCreator = args => args) => createActionType => {\r\n  //console.warn('CREATING ACTION BLUEPRINT', actionName, payloadCreator, metaCreator)\r\n  return createAction(createActionType(actionName), args => payloadCreator(args), args => metaCreator(args))\r\n\r\n}\r\n\r\n/** Creates a translator that turns actionBlueprints into actionCreators */\r\nexport const createBlueprintsTranslator = createActionType => actionBlueprints => {\r\n  assert.ok(actionBlueprints, 'actionBlueprints are required')\r\n  if(Array.isArray(actionBlueprints))\r\n    return actionBlueprints.map(x => actionBlueprints(createActionType))\r\n  assert(typeof actionBlueprints === 'object', 'actionBlueprints must be array or object')\r\n  return Object.keys(actionBlueprints).reduce((actionCreators, x) => {\r\n    actionCreators[x] = actionBlueprints[x](createActionType)\r\n    return actionCreators\r\n  }, {})\r\n}\r\n\r\n//export const createDelayableActionBlueprint = (actionName, payloadCreator, metaCreator) => delay => createActionBlueprint(actionName, payloadCreator, meta => Object.assign(metaCreator(meta), { delay }))\r\n\r\n// metaCreator(meta) === Object.assign(meta, { delay })\r\n// delayableActionBlueprint(delay) === actionBlueprint\r\n\r\n// actionBlueprint(createActionType) === actionCreator\r\n\r\n// actionDefinition === { type, payloadCreactor, ?metaCreator }\r\n"
-  },
-  {
-    "__docId__": 1,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "createActionBlueprint",
-    "memberof": "lib/actionBlueprint.js",
-    "longname": "lib/actionBlueprint.js~createActionBlueprint",
-    "access": null,
-    "export": true,
-    "importPath": "redux-addons/lib/actionBlueprint.js",
-    "importStyle": "{createActionBlueprint}",
-    "description": "Allows the user of lib to define custom redux actions that an action creator retrieved from at a later time via a type map.",
-    "lineNumber": 13,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 2,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "createBlueprintsTranslator",
-    "memberof": "lib/actionBlueprint.js",
-    "longname": "lib/actionBlueprint.js~createBlueprintsTranslator",
-    "access": null,
-    "export": true,
-    "importPath": "redux-addons/lib/actionBlueprint.js",
-    "importStyle": "{createBlueprintsTranslator}",
-    "description": "Creates a translator that turns actionBlueprints into actionCreators",
-    "lineNumber": 20,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 3,
-    "kind": "file",
-    "static": true,
-    "variation": null,
     "name": "lib/context.js",
     "memberof": null,
     "longname": "lib/context.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import { assert } from 'chai'\r\nimport { validateOpts } from './validate'\r\n\r\nimport  { createLogger } from './log'\r\nimport { createBlueprintsTranslator } from './actionBlueprint'\r\n\r\n\r\n/**\r\n * @typedef {Object} LibOpts\r\n * @property {string} libName the name of the library.\r\n * @property {function(context: LibContext): AppValidator} createValidator\r\n */\r\n\r\n /**\r\n  * @typedef {function(opts: AppOpts)} AppValidator\r\n  */\r\n\r\n/**\r\n * @typedef {Object} AppOpts\r\n * @property {string} appName the name of the application.\r\n */\r\n\r\n/**\r\n * @typedef {Object} LibContext\r\n * @property {string} libName the name of the library.\r\n * @property {string} appName the name of the application.\r\n * @property {string} actionNames the names of the defined actions (ordered).\r\n */\r\n\r\n/**\r\n * @typedef {LibAction[]} LibActions\r\n */\r\n\r\n/**\r\n * @typedef {Array} LibAction\r\n */\r\n\r\n/**\r\n * @typedef {Object} LibContext\r\n * @property {string[]} actionNames the names of all the actions (ordered).\r\n */\r\n\r\n/**\r\n * @typedef CreateContext\r\n * @type {function(appOpts: AppOpts): AppContext }\r\n */\r\n\r\n\r\n\r\nconst noop = () => {}\r\nconst cleanActionName = name => name.toUpperCase().replace(/-+\\s+/, '_')\r\n\r\n/** Validates library creators options */\r\nconst validateLibOpts = libOptsRaw => {\r\n  assert.ok(libOptsRaw, 'libOpts definition is required')\r\n  const { libName, validateContext, configureAppContext, configureInitialState } = libOptsRaw\r\n  assert(typeof libName === 'string', 'libName must be a string')\r\n  assert(libName.length > 0, 'libName must not be empty')\r\n\r\n  assert.ok(validateContext, 'validateContext must exist')\r\n  assert(typeof validateContext === 'function', 'validateContext must be a function')\r\n\r\n  assert.ok(configureAppContext, 'configureAppContext must exist')\r\n  assert(typeof configureAppContext === 'function', 'configureAppContext must be a function')\r\n\r\n  assert.ok(configureInitialState, 'configureInitialState must exist')\r\n  assert(typeof configureInitialState === 'function', 'configureInitialState must be a function')\r\n}\r\n\r\n/** Validates library consumers options */\r\nconst validateAppOpts = appOptsRaw => {\r\n  assert.ok(appOptsRaw, 'appOpts are required')\r\n  const { appName } = appOptsRaw\r\n\r\n  assert(typeof appName === 'string', 'appName opt must be a string')\r\n  assert(appName.length > 0, 'appName opt must not be empty')\r\n}\r\nconst isDev = process.env.NODE_ENV !== 'production'\r\n\r\n\r\n/*\r\nimport configureContext from 'redux-addons/context'\r\nconst context = configureContext(libOpts)(appOpts)\r\nconst {  } = context\r\n */\r\nexport default function configureContext(libOpts) {\r\n  if(isDev) validateLibOpts(libOpts)\r\n  const { libName, validateContext, configureAppContext, configureInitialState } = libOpts\r\n  return appOpts => {\r\n    if(isDev) validateAppOpts(appOpts)\r\n    const { appName, level } = appOpts\r\n\r\n    const createActionType =  actionName => `${cleanActionName(libName)}_${cleanActionName(appName)}_${cleanActionName(actionName)}`\r\n    const translateBlueprints = createBlueprintsTranslator(createActionType)\r\n\r\n    const libContext =  { log: createLogger({ libName, level })\r\n                        , libName\r\n                        , appName\r\n                        , createActionType\r\n                        , translateBlueprints\r\n                        }\r\n\r\n    const appContext = configureAppContext(libContext)(appOpts)\r\n    if(isDev) validateContext(libContext, appContext)\r\n\r\n    return Object.assign( appContext, libContext, { get initialState() { return configureInitialState(libContext)(appContext) }\r\n                                                  })\r\n  }\r\n}\r\n"
+    "content": "import { assert } from 'chai'\r\nimport { validateOpts } from './validate'\r\n\r\nimport  { createLogger } from './log'\r\nimport { translateBlueprintsWith, translateBlueprintTypesWith } from 'redux-blueprint'\r\n\r\n\r\n/**\r\n * @typedef {Object} LibOpts\r\n * @property {string} libName the name of the library.\r\n * @property {function(context: LibContext): AppValidator} createValidator\r\n */\r\n\r\n /**\r\n  * @typedef {function(opts: AppOpts)} AppValidator\r\n  */\r\n\r\n/**\r\n * @typedef {Object} AppOpts\r\n * @property {string} appName the name of the application.\r\n */\r\n\r\n/**\r\n * @typedef {Object} LibContext\r\n * @property {string} libName the name of the library.\r\n * @property {string} appName the name of the application.\r\n * @property {string} actionNames the names of the defined actions (ordered).\r\n */\r\n\r\n/**\r\n * @typedef {LibAction[]} LibActions\r\n */\r\n\r\n/**\r\n * @typedef {Array} LibAction\r\n */\r\n\r\n/**\r\n * @typedef {Object} LibContext\r\n * @property {string[]} actionNames the names of all the actions (ordered).\r\n */\r\n\r\n/**\r\n * @typedef CreateContext\r\n * @type {function(appOpts: AppOpts): AppContext }\r\n */\r\n\r\n\r\n\r\nconst noop = () => {}\r\nconst cleanActionName = name => name.toUpperCase().replace(/-+\\s+/, '_')\r\n\r\n/** Validates library creators options */\r\nconst validateLibOpts = libOptsRaw => {\r\n  assert.ok(libOptsRaw, 'libOpts definition is required')\r\n  const { libName, validateContext, configureAppContext, configureInitialState } = libOptsRaw\r\n  assert(typeof libName === 'string', 'libName must be a string')\r\n  assert(libName.length > 0, 'libName must not be empty')\r\n\r\n  assert.ok(validateContext, 'validateContext must exist')\r\n  assert(typeof validateContext === 'function', 'validateContext must be a function')\r\n\r\n  assert.ok(configureAppContext, 'configureAppContext must exist')\r\n  assert(typeof configureAppContext === 'function', 'configureAppContext must be a function')\r\n\r\n  assert.ok(configureInitialState, 'configureInitialState must exist')\r\n  assert(typeof configureInitialState === 'function', 'configureInitialState must be a function')\r\n}\r\n\r\n/** Validates library consumers options */\r\nconst validateAppOpts = appOptsRaw => {\r\n  assert.ok(appOptsRaw, 'appOpts are required')\r\n  const { appName } = appOptsRaw\r\n\r\n  assert(typeof appName === 'string', 'appName opt must be a string')\r\n  assert(appName.length > 0, 'appName opt must not be empty')\r\n}\r\nconst isDev = process.env.NODE_ENV !== 'production'\r\n\r\n\r\n\r\n/*\r\nimport configureContext from 'redux-addons/context'\r\nconst context = configureContext(libOpts)(appOpts)\r\nconst {  } = context\r\n */\r\nexport default function configureContext(libOpts) {\r\n  if(isDev) validateLibOpts(libOpts)\r\n  const { libName, validateContext, configureAppContext, configureInitialState } = libOpts\r\n  return appOpts => {\r\n    if(isDev) validateAppOpts(appOpts)\r\n    const { appName, level } = appOpts\r\n\r\n    const translateBlueprintType =  blueprintType => `${cleanActionName(libName)}_${cleanActionName(appName)}_${cleanActionName(blueprintType)}`\r\n    const translateBlueprintTypes = translateBlueprintTypesWith(translateBlueprintType)\r\n    const translateBlueprints = translateBlueprintsWith(translateBlueprintType)\r\n\r\n    const libContext =  { log: createLogger({ libName, level })\r\n                        , libName\r\n                        , appName\r\n                        , translateBlueprintTypes\r\n                        , translateBlueprints\r\n                        }\r\n\r\n    const appContext = configureAppContext(libContext)(appOpts)\r\n    if(isDev) validateContext(libContext, appContext)\r\n\r\n    return Object.assign( appContext, libContext, { get initialState() { return configureInitialState(libContext)(appContext) }\r\n                                                  })\r\n  }\r\n}\r\n"
   },
   {
-    "__docId__": 4,
+    "__docId__": 1,
     "kind": "typedef",
     "static": true,
     "variation": null,
@@ -106,7 +53,7 @@
     }
   },
   {
-    "__docId__": 5,
+    "__docId__": 2,
     "kind": "typedef",
     "static": true,
     "variation": null,
@@ -124,7 +71,7 @@
     }
   },
   {
-    "__docId__": 6,
+    "__docId__": 3,
     "kind": "typedef",
     "static": true,
     "variation": null,
@@ -154,7 +101,7 @@
     }
   },
   {
-    "__docId__": 7,
+    "__docId__": 4,
     "kind": "typedef",
     "static": true,
     "variation": null,
@@ -204,7 +151,7 @@
     }
   },
   {
-    "__docId__": 8,
+    "__docId__": 5,
     "kind": "typedef",
     "static": true,
     "variation": null,
@@ -222,7 +169,7 @@
     }
   },
   {
-    "__docId__": 9,
+    "__docId__": 6,
     "kind": "typedef",
     "static": true,
     "variation": null,
@@ -240,7 +187,7 @@
     }
   },
   {
-    "__docId__": 10,
+    "__docId__": 7,
     "kind": "typedef",
     "static": true,
     "variation": null,
@@ -270,7 +217,7 @@
     }
   },
   {
-    "__docId__": 11,
+    "__docId__": 8,
     "kind": "typedef",
     "static": true,
     "variation": null,
@@ -289,7 +236,7 @@
     }
   },
   {
-    "__docId__": 12,
+    "__docId__": 9,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -310,7 +257,7 @@
     }
   },
   {
-    "__docId__": 13,
+    "__docId__": 10,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -330,7 +277,7 @@
     }
   },
   {
-    "__docId__": 14,
+    "__docId__": 11,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -350,7 +297,7 @@
     }
   },
   {
-    "__docId__": 15,
+    "__docId__": 12,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -371,7 +318,7 @@
     }
   },
   {
-    "__docId__": 16,
+    "__docId__": 13,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -383,7 +330,7 @@
     "importPath": "redux-addons/lib/context.js",
     "importStyle": "configureContext",
     "description": null,
-    "lineNumber": 86,
+    "lineNumber": 87,
     "undocument": true,
     "params": [
       {
@@ -401,7 +348,7 @@
     "generator": false
   },
   {
-    "__docId__": 17,
+    "__docId__": 14,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -414,7 +361,7 @@
     "content": "const noop = () => {}\r\n\r\nexport const createLogger = ({ libName, level }) => {\r\n  const _formatMessage = ({ level, message, obj }) => {\r\n    if(!message && typeof obj === 'string') {\r\n      message = obj\r\n      obj = noop()\r\n    }\r\n    return _formatLog(obj ? `${level}: '${message}' => ${JSON.stringify(obj)}`  : `${level}: '${message}'`)\r\n  }\r\n\r\n  const _formatLog = message =>`${libName} | ${message}`\r\n\r\n  return process.env.NODE_ENV !== 'production' ? (\r\n    { trace: (obj, message) => level === 'trace' ? console.trace(_formatMessage({ level: 'trace', message, obj })): noop()\r\n    , debug: (obj, message) => ['trace','debug'].includes(level) ? console.log(_formatMessage({ level: 'debug', message, obj })) : noop()\r\n    , info: (obj, message) => ['trace','debug','info'].includes(level) ? console.info(_formatMessage({ level: 'info', message, obj })) : noop()\r\n    , warn: (obj, message) => ['trace','debug','info','warn'].includes(level) ? console.warn(_formatMessage({ level: 'warn', message, obj })) : noop()\r\n    , error: (obj, message) => ['trace','debug','info','warn','error'].includes(level) ? console.error(_formatMessage({ level: 'error', message, obj })) : noop()\r\n    }\r\n  ) : ({ trace: noop, debug: noop, info: noop, warn: noop, error: noop })\r\n}\r\n"
   },
   {
-    "__docId__": 18,
+    "__docId__": 15,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -435,7 +382,7 @@
     }
   },
   {
-    "__docId__": 19,
+    "__docId__": 16,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -456,7 +403,7 @@
     }
   },
   {
-    "__docId__": 20,
+    "__docId__": 17,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -466,10 +413,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import { assert } from 'chai'\r\nimport { createAction } from 'redux-actions'\r\n\r\nconst noop = () => {}\r\n\r\n/** Formats a string as CONST_CASE */\r\nexport const toConstCase = value => value.replace(/[- ]/, '_').toUpperCase()\r\n\r\n/**\r\n * Creates a store with all functions returning noop\r\n * @return {Object}     Noop store object with noop dispatch, getState, subscribe, and replaceReducer functions.\r\n */\r\nexport const createNoopStore = () => ({ dispatch: noop, subscribe: noop, getState: noop, replaceReducer: noop })\r\n\r\n\r\nexport const configureSessionStateAccessor = opts => configureBrowserStateAccessor(sessionStorage, opts)\r\nexport const configureLocalStateAccessor = opts => configureBrowserStateAccessor(localStorage, opts)\r\n\r\n/**\r\n * Configures an accessor object with getState and setState functions for interacting with browser storage.\r\n * @param  {Object}   browserStorage    The storage medium to use (sessionStorage / localStorage).\r\n * @param  {String}   options.prefix    The prefix to use for state keys.\r\n * @param  {Boolean}  options.useJSON   Enables serializing to a single JSON string and uses a single storage key.\r\n * @param  {Function} options.formatKey The formatter to use for storage keys.\r\n * @return {Function}                   Thunk taking initialState and returning initialized getState and setState functions.\r\n */\r\nexport const configureBrowserStateAccessor = (browserStorage, { prefix = 'REDUX_BROWSER'\r\n                                                              , useJSON = false\r\n                                                              , formatKey = (prefix, key = 'STATE') => `${toConstCase(prefix)}_${toConstCase(key)}`\r\n                                                              } = {}) => {\r\n  assert.ok(browserStorage, 'browserStorage is required (localStorage or sessionStorage)')\r\n  assert(typeof browserStorage === 'object', 'browserStorage must be an object')\r\n  assert(typeof browserStorage.setItem === 'function', 'browserStorage have same setter interface as localStorage / sessionStorage')\r\n  assert(typeof browserStorage.getItem === 'function', 'browserStorage have same getter interface as localStorage / sessionStorage')\r\n\r\n  const stateName = formatKey(prefix)\r\n\r\n  /** Will create the stateAccessor and initialize it with initialState */\r\n  return initialState => {\r\n    assert.ok(initialState, 'initialState is required.')\r\n    assert(typeof initialState === 'object', 'initialState must be an object.')\r\n    const keyMap = useJSON ? noop() : new Map(Object.keys(initialState).map(x => [x, formatKey(prefix, x)]))\r\n    const setState = (useJSON\r\n      ? newState => {\r\n          /** Serialize to a single JSON string and serialize that. */\r\n          browserStorage.setItem(stateName, JSON.stringify(newState))\r\n        }\r\n      : newState => {\r\n        /** Set individual storage keys. */\r\n        for(let [key, storageKey] of keyMap.entries())\r\n          browserStorage.setItem(storageKey, newState[key])\r\n        }\r\n      )\r\n\r\n    const getState = (useJSON\r\n      ? () => {\r\n          const serializedState = browserStorage.getItem(stateName)\r\n          if(serializedState)\r\n            return JSON.parse(serializedState)\r\n        }\r\n      : () => {\r\n          let newState = {}\r\n          for(let [key, storageKey] of keyMap.entries())\r\n            newState[key] = browserStorage.getItem(storageKey)\r\n          return newState\r\n        }\r\n      )\r\n    setState(initialState)\r\n    return { setState, getState }\r\n  }\r\n}\r\n\r\n/** Asserts that createBrowserStore options are valid. */\r\nconst assertBrowserStore = (reducer, initialState, createBrowserStateAccessor) => {\r\n  assert.ok(reducer, 'reducer is required')\r\n  assert(typeof reducer === 'function', 'reducer must be a function')\r\n  assert.ok(initialState, 'initialState is required')\r\n  assert(typeof initialState === 'object', 'initialState must be an object')\r\n  assert.ok(createBrowserStateAccessor, 'createBrowserStateAccessor is required')\r\n  assert(typeof createBrowserStateAccessor === 'function', 'createBrowserStateAccessor must be a function')\r\n}\r\n\r\n/**\r\n * Works the same as createStore but uses browserStorage as persistence medium.\r\n * @param  {!function}  localReducer - The reducer to create new state to be persisted.\r\n * @param  {!Object}    initialState - Initial state to create in local storage (REQUIRED).\r\n * @param  {String}     prefix - The local storage namespace to use.\r\n * @return {Object}     Local store object with dispatch, getState, subscribe, and replaceReducer functions.\r\n */\r\nexport const configureBrowserStore = createBrowserStateAccessor => (reducer, initialState) => {\r\n  if(process.env.NODE_ENV !== 'production')\r\n    assertBrowserStore(reducer, initialState, createBrowserStateAccessor)\r\n\r\n  const { getState, setState } = createBrowserStateAccessor(initialState)\r\n  let currentReducer = reducer\r\n  let listeners = []\r\n  let isDispatching = false\r\n  const subscribe = listener => {\r\n    listeners.push(listener)\r\n    return () => {\r\n      let index = listeners.indexOf(listener)\r\n      listeners.splice(index, 1)\r\n    }\r\n  }\r\n  const dispatch = action => {\r\n    if(isDispatching)\r\n      throw new Error('Browser reducers may not dispatch actions.')\r\n    try {\r\n      isDispatching = true\r\n      setState(currentReducer(getState(), action))\r\n    } finally {\r\n      isDispatching = false\r\n    }\r\n    listeners.slice().forEach(listener => listener())\r\n    return action\r\n  }\r\n  const replaceReducer = nextReducer => {\r\n    currentReducer = nextReducer\r\n    dispatch({ type: '@@redux-browser/INIT' })\r\n  }\r\n  dispatch({ type: '@@redux-browser/INIT' })\r\n  return  { dispatch, subscribe, getState, replaceReducer }\r\n}\r\n\r\n/** Configures a createSessionStore thunk that returns the same interface as redux createStore */\r\nexport const configureSessionStore = opts => {\r\n  const createSessionStateAccessor = configureSessionStateAccessor(opts)\r\n  return configureBrowserStore(createSessionStateAccessor)\r\n}\r\n\r\n/** Configures a createLocalStore thunk that returns the same interface as redux createStore */\r\nexport const configureLocalStore = opts => {\r\n  const createLocalStateAccessor = configureLocalStateAccessor(opts)\r\n  return configureBrowserStore(createLocalStateAccessor)\r\n}\r\n\r\n/**\r\n * Creates sessionStorage interfacing component that implements redux store interface.\r\n * Uses one sessionStorage key per state node. Only supports primitive state keys.\r\n */\r\nexport const createSessionStore = (reducer, initialState) => configureSessionStore({ useJSON: false })(reducer, initialState)\r\n\r\n/**\r\n * Creates sessionStorage interfacing component that implements redux store interface.\r\n * Serializes / Deserializes state object to and from JSON. Supports nested structures.\r\n */\r\nexport const createJSONSessionStore = (reducer, initialState) => configureSessionStore({ useJSON: true })(reducer, initialState)\r\n\r\n/**\r\n * Creates localStorage interfacing component that implements redux store interface.\r\n * Uses one localStorage key per state node. Only supports primitive state keys.\r\n */\r\nexport const createLocalStore = (reducer, initialState) => configureLocalStore({ useJSON: false })(reducer, initialState)\r\n\r\n/**\r\n * Creates localStorage interfacing component that implements redux store interface.\r\n * Serializes / Deserializes state object to and from JSON. Supports nested structures.\r\n */\r\nexport const createJSONLocalStore = (reducer, initialState) => configureLocalStore({ useJSON: true })(reducer, initialState)\r\n\r\n/**\r\n * Configures a reducer that reduces action to a state, then optionally merges with previous state for subscribed action types.\r\n * @param  {function} actionReducer Map the action to the object that will be merged to state.\r\n * @param {bool}     mergeState    Defines whether the reducer results should be merged with the previous state.\r\n * @return {Object}                 New state object.\r\n */\r\nexport const configureReducer = (actionReducer, mergeState = true) => (...subscribeTypes) => (state, action) => {\r\n  if(subscribeTypes.includes(action.type)) {\r\n    console.warn(`autoconfigured reducer subscribe type match => ${action.type} in ${JSON.stringify(subscribeTypes)}`)\r\n    return mergeState ? Object.assign({}, state, actionReducer(action)) : actionReducer(action)\r\n  }\r\n  return state\r\n}\r\n\r\n/**\r\n * Creates a reducer that merged payload with state for matching subscribe types.\r\n * @param  {String[]} subscribeTypes   Action types to subscribe reducer to.\r\n */\r\nexport const createMergingReducer = configureReducer(action => action.payload, true)\r\n\r\n/**\r\n * Returns object implementing redux store interface whose getState method selects a sub tree of the overall state.\r\n * Useful for library components that embed state in a subnode of consumer apps redux state\r\n * @param  {Object}    store      A store to bisect\r\n * @param  {...String} selectKeys The selection path to use with getState\r\n * @return {Object}               A sub store implementing redux store interface\r\n */\r\nexport const bisectStore = (store, ...selectKeys) => {\r\n  assert.ok(store, 'store must exist')\r\n  assert.ok(store.dispatch, 'store must define dispatch')\r\n  assert.ok(store.getState, 'store must define getState')\r\n  assert(selectKeys.length > 0, 'must define one or more keys to select on')\r\n\r\n  return  { dispatch: action => store.dispatch(action)\r\n          , subscribe: listener => store.subscribe(listener)\r\n          , getState: () => selectState(selectKeys, store.getState())\r\n          }\r\n}\r\n\r\n/** Selects a sub state from a state tree by path. */\r\nexport const selectState = (selectKeys, state, defaultValue) => {\r\n  assert(Array.isArray(selectKeys), 'selectKeys must be an array.')\r\n  assert(selectKeys.length > 0, 'must specify a selection path')\r\n  assert.ok(state, 'state is required')\r\n  let result = state\r\n  for(let selectKey of selectKeys) {\r\n    result = state[selectKey]\r\n    if(!result)\r\n      break\r\n  }\r\n  return result || defaultValue\r\n}\r\n\r\n\r\n\r\n\r\n/**\r\n * createStoreMultiplexer([['lib', libStore], ['fast', fastStore], ['session', sessionStore], ['local', localStore]])\r\n * Takes in an ordered mapping of names to stores and reduces to a redux store compatible interface that can dispatch and getState to all stores or specific ones.\r\n * @param  {Array} storeMapping  The mapping of store names to store references.\r\n * @return {Object}              An object that can dispatch and getState to all stores or each individually.\r\n */\r\nexport const createStoreMultiplexer = (storeMapping) => {\r\n  assert.ok(storeMapping, 'storeMapping is required')\r\n  assert(Array.isArray(storeMapping), 'storeMapping must be an array')\r\n  assert(storeMapping.every(x => Array.isArray(x) && x.length === 2), 'storeMapping must be an array of [<name>, <store>] arrays')\r\n\r\n  const storeMap = new Map(storeMapping)\r\n  const mapReduceStores = operation => {\r\n    let result = {}\r\n    for(let [name, store] of storeMap.entries())\r\n      result[name] = operation(store)\r\n    return result\r\n  }\r\n\r\n  const storesLiteral = storeMapping.reduce((prev, [name, store]) => {\r\n    prev[name] = store\r\n    return prev\r\n  }, {})\r\n\r\n  const dispatch = action => mapReduceStores(store => store.dispatch(action))\r\n  const getState = () => mapReduceStores(store => store.getState())\r\n  const selectFirst = (...names) => {\r\n    for(let name of names) {\r\n      if(storeMap.has(name))\r\n        return storeMap.get(name)\r\n    }\r\n    throw new Error(`None of the requested stores exist in storeMapping | configured => ${JSON.stringify(storeMapping.map(x => x[0]))} requested => ${JSON.stringify(names)}`)\r\n  }\r\n  const select = (...names) => names.filter(x => storeMap.has(x)).map(x => storeMap.get(x))\r\n  return  { ...storesLiteral\r\n          , dispatch\r\n          , getState\r\n          , selectFirst\r\n          , select\r\n          }\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n//actionDefinitionMapping === [actionName, actionDefinition]\r\n// actionDefinition === { type, payloadCreactor, ?metaCreator }\r\n\r\n//payloadCreator === (actionArgs => payload)\r\n//metaCreator === (actionArgs => meta)\r\n//const action = createAction(ACTION_TYPE, payloadCreator, metaCreator)(actionArgs)\r\n\r\n\r\nconst creatorOverride = props => creator => args => Object.assign({}, creator(args), props)\r\n\r\nconst delayOverride = delay => overrideCreator({ delay })\r\n\r\n\r\n\r\n// TODO: MOVE THIS TO ACTIONS\r\nexport const createActionMultiplexer = actionMapping => {\r\n  assert.ok(actionMapping, 'actionMapping is required')\r\n  assert(Array.isArray(actionMapping), 'actionMapping must be an array')\r\n  assert(actionMapping.every(x => Array.isArray(x) && x.length === 2), 'actionMapping must be an array of [<name>, <store>] arrays')\r\n\r\n  const actionMap = new Map(actionMapping)\r\n\r\n  const translators = ( { delay: delay => args => Object.assign({}, args, { delay })\r\n                        } )\r\n\r\n\r\n  const translateCreator = creator => translate => args => translate(typeof creator === 'function' ? creator(args) : creator, args)\r\n\r\n  const identityTranslator = identity => identity\r\n\r\n  const selectActionCreator = (actionName, { translatePayload = identityTranslator, translateMeta = identityTranslator } = {}) => {\r\n    const actionDefinition = actionMap.get(actionName)\r\n    assert.ok(actionDefinition, `action definition for actionName ${actionName} must be configured in createActionMultiplexer`)\r\n    const { type, payloadCreator, metaCreator } = actionDefinition\r\n    assert.ok(type, `action type must be defined for actionName => ${actionName}`)\r\n    assert(typeof type === 'string', `action type must be string for actionName => ${actionName}`)\r\n    return createAction ( type\r\n                        , translateCreator(payloadCreator)(translatePayload)\r\n                        , translateCreator(metaCreator)(translateMeta)\r\n                        )\r\n  }\r\n\r\n  const selectDelayedActionCreator = (actionName, delay) => selectActionCreator(actionName, { translateMeta: translators.delay(delay) })\r\n\r\n  const selectAction = (actionName, args) => selectActionCreator(actionName)(args)\r\n\r\n  return { selectActionCreator, selectDelayedActionCreator, selectAction }\r\n}\r\n"
+    "content": "import { assert } from 'chai'\r\nimport { createAction } from 'redux-actions'\r\n\r\nconst noop = () => {}\r\n\r\n/** Formats a string as CONST_CASE */\r\nexport const toConstCase = value => value.replace(/[- ]/, '_').toUpperCase()\r\n\r\n/**\r\n * Creates a store with all functions returning noop\r\n * @return {Object}     Noop store object with noop dispatch, getState, subscribe, and replaceReducer functions.\r\n */\r\nexport const createNoopStore = () => ({ dispatch: noop, subscribe: noop, getState: noop, replaceReducer: noop })\r\n\r\n\r\nexport const configureSessionStateAccessor = opts => configureBrowserStateAccessor(sessionStorage, opts)\r\nexport const configureLocalStateAccessor = opts => configureBrowserStateAccessor(localStorage, opts)\r\n\r\n/**\r\n * Configures an accessor object with getState and setState functions for interacting with browser storage.\r\n * @param  {Object}   browserStorage    The storage medium to use (sessionStorage / localStorage).\r\n * @param  {String}   options.prefix    The prefix to use for state keys.\r\n * @param  {Boolean}  options.useJSON   Enables serializing to a single JSON string and uses a single storage key.\r\n * @param  {Function} options.formatKey The formatter to use for storage keys.\r\n * @return {Function}                   Thunk taking initialState and returning initialized getState and setState functions.\r\n */\r\nexport const configureBrowserStateAccessor = (browserStorage, { prefix = 'REDUX_BROWSER'\r\n                                                              , useJSON = false\r\n                                                              , formatKey = (prefix, key = 'STATE') => `${toConstCase(prefix)}_${toConstCase(key)}`\r\n                                                              } = {}) => {\r\n  assert.ok(browserStorage, 'browserStorage is required (localStorage or sessionStorage)')\r\n  assert(typeof browserStorage === 'object', 'browserStorage must be an object')\r\n  assert(typeof browserStorage.setItem === 'function', 'browserStorage have same setter interface as localStorage / sessionStorage')\r\n  assert(typeof browserStorage.getItem === 'function', 'browserStorage have same getter interface as localStorage / sessionStorage')\r\n\r\n  const stateName = formatKey(prefix)\r\n\r\n  /** Will create the stateAccessor and initialize it with initialState */\r\n  return initialState => {\r\n    assert.ok(initialState, 'initialState is required.')\r\n    assert(typeof initialState === 'object', 'initialState must be an object.')\r\n    const keyMap = useJSON ? noop() : new Map(Object.keys(initialState).map(x => [x, formatKey(prefix, x)]))\r\n    const setState = (useJSON\r\n      ? newState => {\r\n          /** Serialize to a single JSON string and serialize that. */\r\n          browserStorage.setItem(stateName, JSON.stringify(newState))\r\n        }\r\n      : newState => {\r\n          /** Set individual storage keys. */\r\n          for(let [key, storageKey] of keyMap.entries())\r\n            browserStorage.setItem(storageKey, newState[key])\r\n        }\r\n      )\r\n\r\n    const getState = (useJSON\r\n      ? () => {\r\n          const serializedState = browserStorage.getItem(stateName)\r\n          if(serializedState)\r\n            return JSON.parse(serializedState)\r\n        }\r\n      : () => {\r\n          let newState = {}\r\n          for(let [key, storageKey] of keyMap.entries())\r\n            newState[key] = browserStorage.getItem(storageKey)\r\n          return newState\r\n        }\r\n      )\r\n    setState(initialState)\r\n    return { setState, getState }\r\n  }\r\n}\r\n\r\n/** Asserts that createBrowserStore options are valid. */\r\nconst assertBrowserStore = (reducer, initialState, createBrowserStateAccessor) => {\r\n  assert.ok(reducer, 'reducer is required')\r\n  assert(typeof reducer === 'function', 'reducer must be a function')\r\n  assert.ok(initialState, 'initialState is required')\r\n  assert(typeof initialState === 'object', 'initialState must be an object')\r\n  assert.ok(createBrowserStateAccessor, 'createBrowserStateAccessor is required')\r\n  assert(typeof createBrowserStateAccessor === 'function', 'createBrowserStateAccessor must be a function')\r\n}\r\n\r\n/**\r\n * Works the same as createStore but uses browserStorage as persistence medium.\r\n * @param  {!function}  localReducer - The reducer to create new state to be persisted.\r\n * @param  {!Object}    initialState - Initial state to create in local storage (REQUIRED).\r\n * @param  {String}     prefix - The local storage namespace to use.\r\n * @return {Object}     Local store object with dispatch, getState, subscribe, and replaceReducer functions.\r\n */\r\nexport const configureBrowserStore = createBrowserStateAccessor => (reducer, initialState) => {\r\n  if(process.env.NODE_ENV !== 'production')\r\n    assertBrowserStore(reducer, initialState, createBrowserStateAccessor)\r\n\r\n  const { getState, setState } = createBrowserStateAccessor(initialState)\r\n  let currentReducer = reducer\r\n  let listeners = []\r\n  let isDispatching = false\r\n  const subscribe = listener => {\r\n    listeners.push(listener)\r\n    return () => {\r\n      let index = listeners.indexOf(listener)\r\n      listeners.splice(index, 1)\r\n    }\r\n  }\r\n  const dispatch = action => {\r\n    if(isDispatching)\r\n      throw new Error('Browser reducers may not dispatch actions.')\r\n    try {\r\n      isDispatching = true\r\n      setState(currentReducer(getState(), action))\r\n    } finally {\r\n      isDispatching = false\r\n    }\r\n    listeners.slice().forEach(listener => listener())\r\n    return action\r\n  }\r\n  const replaceReducer = nextReducer => {\r\n    currentReducer = nextReducer\r\n    dispatch({ type: '@@redux-browser/INIT' })\r\n  }\r\n  dispatch({ type: '@@redux-browser/INIT' })\r\n  return  { dispatch, subscribe, getState, replaceReducer }\r\n}\r\n\r\n/** Configures a createSessionStore thunk that returns the same interface as redux createStore */\r\nexport const configureSessionStore = opts => {\r\n  const createSessionStateAccessor = configureSessionStateAccessor(opts)\r\n  return configureBrowserStore(createSessionStateAccessor)\r\n}\r\n\r\n/** Configures a createLocalStore thunk that returns the same interface as redux createStore */\r\nexport const configureLocalStore = opts => {\r\n  const createLocalStateAccessor = configureLocalStateAccessor(opts)\r\n  return configureBrowserStore(createLocalStateAccessor)\r\n}\r\n\r\n/**\r\n * Creates sessionStorage interfacing component that implements redux store interface.\r\n * Uses one sessionStorage key per state node. Only supports primitive state keys.\r\n */\r\nexport const createSessionStore = (reducer, initialState) => configureSessionStore({ useJSON: false })(reducer, initialState)\r\n\r\n/**\r\n * Creates sessionStorage interfacing component that implements redux store interface.\r\n * Serializes / Deserializes state object to and from JSON. Supports nested structures.\r\n */\r\nexport const createJSONSessionStore = (reducer, initialState) => configureSessionStore({ useJSON: true })(reducer, initialState)\r\n\r\n/**\r\n * Creates localStorage interfacing component that implements redux store interface.\r\n * Uses one localStorage key per state node. Only supports primitive state keys.\r\n */\r\nexport const createLocalStore = (reducer, initialState) => configureLocalStore({ useJSON: false })(reducer, initialState)\r\n\r\n/**\r\n * Creates localStorage interfacing component that implements redux store interface.\r\n * Serializes / Deserializes state object to and from JSON. Supports nested structures.\r\n */\r\nexport const createJSONLocalStore = (reducer, initialState) => configureLocalStore({ useJSON: true })(reducer, initialState)\r\n\r\n/**\r\n * Configures a reducer that reduces action to a state, then optionally merges with previous state for subscribed action types.\r\n * @param  {function} actionReducer Map the action to the object that will be merged to state.\r\n * @param {bool}     mergeState    Defines whether the reducer results should be merged with the previous state.\r\n * @return {Object}                 New state object.\r\n */\r\nexport const configureReducer = (actionReducer, mergeState = true) => (...subscribeTypes) => (state, action) => {\r\n  if(subscribeTypes.includes(action.type)) {\r\n    console.warn(`autoconfigured reducer subscribe type match => ${action.type} in ${JSON.stringify(subscribeTypes)}`)\r\n    return mergeState ? Object.assign({}, state, actionReducer(action)) : actionReducer(action)\r\n  }\r\n  return state\r\n}\r\n\r\n/**\r\n * Creates a reducer that merged payload with state for matching subscribe types.\r\n * @param  {String[]} subscribeTypes   Action types to subscribe reducer to.\r\n */\r\nexport const createMergingReducer = configureReducer(action => action.payload, true)\r\n\r\n\r\n\r\n//actionDefinitionMapping === [actionName, actionDefinition]\r\n// actionDefinition === { type, payloadCreactor, ?metaCreator }\r\n\r\n//payloadCreator === (actionArgs => payload)\r\n//metaCreator === (actionArgs => meta)\r\n//const action = createAction(ACTION_TYPE, payloadCreator, metaCreator)(actionArgs)\r\n\r\n\r\nconst creatorOverride = props => creator => args => Object.assign({}, creator(args), props)\r\n\r\nconst delayOverride = delay => overrideCreator({ delay })\r\n\r\n\r\n\r\n// TODO: MOVE THIS TO ACTIONS\r\nexport const createActionMultiplexer = actionMapping => {\r\n  assert.ok(actionMapping, 'actionMapping is required')\r\n  assert(Array.isArray(actionMapping), 'actionMapping must be an array')\r\n  assert(actionMapping.every(x => Array.isArray(x) && x.length === 2), 'actionMapping must be an array of [<name>, <store>] arrays')\r\n\r\n  const actionMap = new Map(actionMapping)\r\n\r\n  const translators = ( { delay: delay => args => Object.assign({}, args, { delay })\r\n                        } )\r\n\r\n\r\n  const translateCreator = creator => translate => args => translate(typeof creator === 'function' ? creator(args) : creator, args)\r\n\r\n  const identityTranslator = identity => identity\r\n\r\n  const selectActionCreator = (actionName, { translatePayload = identityTranslator, translateMeta = identityTranslator } = {}) => {\r\n    const actionDefinition = actionMap.get(actionName)\r\n    assert.ok(actionDefinition, `action definition for actionName ${actionName} must be configured in createActionMultiplexer`)\r\n    const { type, payloadCreator, metaCreator } = actionDefinition\r\n    assert.ok(type, `action type must be defined for actionName => ${actionName}`)\r\n    assert(typeof type === 'string', `action type must be string for actionName => ${actionName}`)\r\n    return createAction ( type\r\n                        , translateCreator(payloadCreator)(translatePayload)\r\n                        , translateCreator(metaCreator)(translateMeta)\r\n                        )\r\n  }\r\n\r\n  const selectDelayedActionCreator = (actionName, delay) => selectActionCreator(actionName, { translateMeta: translators.delay(delay) })\r\n\r\n  const selectAction = (actionName, args) => selectActionCreator(actionName)(args)\r\n\r\n  return { selectActionCreator, selectDelayedActionCreator, selectAction }\r\n}\r\n"
   },
   {
-    "__docId__": 21,
+    "__docId__": 18,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -490,7 +437,7 @@
     }
   },
   {
-    "__docId__": 22,
+    "__docId__": 19,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -510,7 +457,7 @@
     }
   },
   {
-    "__docId__": 23,
+    "__docId__": 20,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -538,7 +485,7 @@
     }
   },
   {
-    "__docId__": 24,
+    "__docId__": 21,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -559,7 +506,7 @@
     }
   },
   {
-    "__docId__": 25,
+    "__docId__": 22,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -580,7 +527,7 @@
     }
   },
   {
-    "__docId__": 26,
+    "__docId__": 23,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -650,7 +597,7 @@
     }
   },
   {
-    "__docId__": 27,
+    "__docId__": 24,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -670,7 +617,7 @@
     }
   },
   {
-    "__docId__": 28,
+    "__docId__": 25,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -730,7 +677,7 @@
     }
   },
   {
-    "__docId__": 29,
+    "__docId__": 26,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -750,7 +697,7 @@
     }
   },
   {
-    "__docId__": 30,
+    "__docId__": 27,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -770,7 +717,7 @@
     }
   },
   {
-    "__docId__": 31,
+    "__docId__": 28,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -790,7 +737,7 @@
     }
   },
   {
-    "__docId__": 32,
+    "__docId__": 29,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -810,7 +757,7 @@
     }
   },
   {
-    "__docId__": 33,
+    "__docId__": 30,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -830,7 +777,7 @@
     }
   },
   {
-    "__docId__": 34,
+    "__docId__": 31,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -850,7 +797,7 @@
     }
   },
   {
-    "__docId__": 35,
+    "__docId__": 32,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -900,7 +847,7 @@
     }
   },
   {
-    "__docId__": 36,
+    "__docId__": 33,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -932,117 +879,7 @@
     }
   },
   {
-    "__docId__": 37,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "bisectStore",
-    "memberof": "lib/store.js",
-    "longname": "lib/store.js~bisectStore",
-    "access": null,
-    "export": true,
-    "importPath": "redux-addons/lib/store.js",
-    "importStyle": "{bisectStore}",
-    "description": "Returns object implementing redux store interface whose getState method selects a sub tree of the overall state.\nUseful for library components that embed state in a subnode of consumer apps redux state",
-    "lineNumber": 188,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "Object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "store",
-        "description": "A store to bisect"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "...String"
-        ],
-        "spread": true,
-        "optional": false,
-        "name": "selectKeys",
-        "description": "The selection path to use with getState"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Object"
-      ],
-      "spread": false,
-      "description": "A sub store implementing redux store interface"
-    },
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 38,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "selectState",
-    "memberof": "lib/store.js",
-    "longname": "lib/store.js~selectState",
-    "access": null,
-    "export": true,
-    "importPath": "redux-addons/lib/store.js",
-    "importStyle": "{selectState}",
-    "description": "Selects a sub state from a state tree by path.",
-    "lineNumber": 201,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 39,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "createStoreMultiplexer",
-    "memberof": "lib/store.js",
-    "longname": "lib/store.js~createStoreMultiplexer",
-    "access": null,
-    "export": true,
-    "importPath": "redux-addons/lib/store.js",
-    "importStyle": "{createStoreMultiplexer}",
-    "description": "createStoreMultiplexer([['lib', libStore], ['fast', fastStore], ['session', sessionStore], ['local', localStore]])\nTakes in an ordered mapping of names to stores and reduces to a redux store compatible interface that can dispatch and getState to all stores or specific ones.",
-    "lineNumber": 223,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "Array"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "storeMapping",
-        "description": "The mapping of store names to store references."
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Object"
-      ],
-      "spread": false,
-      "description": "An object that can dispatch and getState to all stores or each individually."
-    },
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 40,
+    "__docId__": 34,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1054,7 +891,7 @@
     "importPath": "redux-addons/lib/store.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 305,
+    "lineNumber": 191,
     "undocument": true,
     "type": {
       "types": [
@@ -1063,7 +900,7 @@
     }
   },
   {
-    "__docId__": 41,
+    "__docId__": 35,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1075,7 +912,7 @@
     "importPath": "redux-addons/lib/store.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 307,
+    "lineNumber": 193,
     "undocument": true,
     "type": {
       "types": [
@@ -1084,7 +921,7 @@
     }
   },
   {
-    "__docId__": 42,
+    "__docId__": 36,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1096,7 +933,7 @@
     "importPath": "redux-addons/lib/store.js",
     "importStyle": "{createActionMultiplexer}",
     "description": null,
-    "lineNumber": 312,
+    "lineNumber": 198,
     "undocument": true,
     "type": {
       "types": [
@@ -1105,7 +942,7 @@
     }
   },
   {
-    "__docId__": 44,
+    "__docId__": 38,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1118,7 +955,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 45,
+    "__docId__": 39,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1131,7 +968,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 46,
+    "__docId__": 40,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1144,7 +981,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 47,
+    "__docId__": 41,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1157,7 +994,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 48,
+    "__docId__": 42,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1170,7 +1007,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 49,
+    "__docId__": 43,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1183,7 +1020,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 50,
+    "__docId__": 44,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1196,7 +1033,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 51,
+    "__docId__": 45,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1209,7 +1046,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 52,
+    "__docId__": 46,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1222,7 +1059,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 53,
+    "__docId__": 47,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1235,7 +1072,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 54,
+    "__docId__": 48,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1248,7 +1085,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 55,
+    "__docId__": 49,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1261,7 +1098,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 56,
+    "__docId__": 50,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1274,7 +1111,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 57,
+    "__docId__": 51,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1287,7 +1124,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 58,
+    "__docId__": 52,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1300,7 +1137,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 59,
+    "__docId__": 53,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1313,7 +1150,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 60,
+    "__docId__": 54,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1326,7 +1163,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 61,
+    "__docId__": 55,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1339,7 +1176,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 62,
+    "__docId__": 56,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1352,7 +1189,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 63,
+    "__docId__": 57,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1365,7 +1202,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 64,
+    "__docId__": 58,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1378,7 +1215,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 65,
+    "__docId__": 59,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1391,7 +1228,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 66,
+    "__docId__": 60,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1404,7 +1241,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 67,
+    "__docId__": 61,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1417,7 +1254,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 68,
+    "__docId__": 62,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1430,7 +1267,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 69,
+    "__docId__": 63,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1443,7 +1280,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 70,
+    "__docId__": 64,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1456,7 +1293,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 71,
+    "__docId__": 65,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1469,7 +1306,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 72,
+    "__docId__": 66,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1482,7 +1319,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 73,
+    "__docId__": 67,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1495,7 +1332,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 74,
+    "__docId__": 68,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1508,7 +1345,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 75,
+    "__docId__": 69,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1521,7 +1358,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 76,
+    "__docId__": 70,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1534,7 +1371,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 77,
+    "__docId__": 71,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1547,7 +1384,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 78,
+    "__docId__": 72,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1560,7 +1397,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 79,
+    "__docId__": 73,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1573,7 +1410,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 80,
+    "__docId__": 74,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1586,7 +1423,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 81,
+    "__docId__": 75,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1599,7 +1436,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 82,
+    "__docId__": 76,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1612,7 +1449,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 83,
+    "__docId__": 77,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1625,7 +1462,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 84,
+    "__docId__": 78,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1638,7 +1475,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 85,
+    "__docId__": 79,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1651,7 +1488,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 86,
+    "__docId__": 80,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1664,7 +1501,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 87,
+    "__docId__": 81,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1677,7 +1514,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 88,
+    "__docId__": 82,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1690,7 +1527,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 89,
+    "__docId__": 83,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1703,7 +1540,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 90,
+    "__docId__": 84,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1716,7 +1553,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 92,
+    "__docId__": 86,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1729,7 +1566,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 93,
+    "__docId__": 87,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1742,7 +1579,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 94,
+    "__docId__": 88,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1755,7 +1592,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 95,
+    "__docId__": 89,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1768,7 +1605,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 96,
+    "__docId__": 90,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1781,7 +1618,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 97,
+    "__docId__": 91,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1794,7 +1631,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 98,
+    "__docId__": 92,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1807,7 +1644,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 99,
+    "__docId__": 93,
     "kind": "external",
     "static": true,
     "variation": null,
