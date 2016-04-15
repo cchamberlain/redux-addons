@@ -4,9 +4,8 @@
 
 There are unique challenges to redux library development. This package aims to orchestrate configuration to both the library creator and consumer and allow the resultant package to be easily strapped into an existing redux store and reducers.
 
-[![NPM](https://nodei.co/npm/redux-addons.png?stars=true&downloadRank=true)](https://nodei.co/npm/redux-addons/)
+[![NPM](https://nodei.co/npm/redux-addons.png?stars=true&downloads=true)](https://nodei.co/npm/redux-addons/)
 
-[![NPM](https://nodei.co/npm-dl/redux-addons.png?months=1)](https://nodei.co/npm/redux-addons/)
 
 **Disclaimer: This library is in early development. It will be changing rapidly and is not ready for production use.**
 
