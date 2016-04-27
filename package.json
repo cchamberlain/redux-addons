@@ -33,8 +33,10 @@
     "libraries"
   ],
   "dependencies": {
-    "redux-middleware": "*",
-    "redux-blueprint": "*"
+    "chai": "^3.5.0",
+    "redux-actions": "^0.9.1",
+    "redux-blueprint": "*",
+    "redux-middleware": "*"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
