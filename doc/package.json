@@ -1,6 +1,6 @@
 {
   "name": "redux-addons",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "Abstractions to ease integration of redux libraries and existing redux applications.",
   "main": "lib/index.js",
   "files": [
