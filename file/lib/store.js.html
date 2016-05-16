@@ -64,6 +64,7 @@
 <div class="content" data-ice="content"><h1 data-ice="title">lib/store.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { assert } from &apos;chai&apos;
 import { createAction } from &apos;redux-actions&apos;
+const IS_BROWSER = typeof window === &apos;object&apos;
 
 const noop = () =&gt; {}
 
@@ -77,8 +78,8 @@ export const toConstCase = value =&gt; value.replace(/[- ]/, &apos;_&apos;).toUp
 export const createNoopStore = () =&gt; ({ dispatch: noop, subscribe: noop, getState: noop, replaceReducer: noop })
 
 
-export const configureSessionStateAccessor = opts =&gt; configureBrowserStateAccessor(sessionStorage, opts)
-export const configureLocalStateAccessor = opts =&gt; configureBrowserStateAccessor(localStorage, opts)
+export const configureSessionStateAccessor = opts =&gt; IS_BROWSER ? configureBrowserStateAccessor(sessionStorage, opts) : noop
+export const configureLocalStateAccessor = opts =&gt; IS_BROWSER ? configureBrowserStateAccessor(localStorage, opts) : noop
 
 /**
  * Configures an accessor object with getState and setState functions for interacting with browser storage.
@@ -88,10 +89,10 @@ export const configureLocalStateAccessor = opts =&gt; configureBrowserStateAcces
  * @param  {Function} options.formatKey The formatter to use for storage keys.
  * @return {Function}                   Thunk taking initialState and returning initialized getState and setState functions.
  */
-export const configureBrowserStateAccessor = (browserStorage, { prefix = &apos;REDUX_BROWSER&apos;
-                                                              , useJSON = false
-                                                              , formatKey = (prefix, key = &apos;STATE&apos;) =&gt; `${toConstCase(prefix)}_${toConstCase(key)}`
-                                                              } = {}) =&gt; {
+export const configureBrowserStateAccessor = IS_BROWSER ? (browserStorage,  { prefix = &apos;REDUX_BROWSER&apos;
+                                                                            , useJSON = false
+                                                                            , formatKey = (prefix, key = &apos;STATE&apos;) =&gt; `${toConstCase(prefix)}_${toConstCase(key)}`
+                                                                            } = {}) =&gt; {
   assert.ok(browserStorage, &apos;browserStorage is required (localStorage or sessionStorage)&apos;)
   assert(typeof browserStorage === &apos;object&apos;, &apos;browserStorage must be an object&apos;)
   assert(typeof browserStorage.setItem === &apos;function&apos;, &apos;browserStorage have same setter interface as localStorage / sessionStorage&apos;)
@@ -132,7 +133,7 @@ export const configureBrowserStateAccessor = (browserStorage, { prefix = &apos;R
     setState(initialState)
     return { setState, getState }
   }
-}
+} : noop
 
 /** Asserts that createBrowserStore options are valid. */
 const assertBrowserStore = (reducer, initialState, createBrowserStateAccessor) =&gt; {
