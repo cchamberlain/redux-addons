@@ -1,5 +1,6 @@
 import { assert } from 'chai'
 import { createAction } from 'redux-actions'
+const IS_BROWSER = typeof window === 'object'
 
 const noop = () => {}
 
@@ -13,8 +14,8 @@ export const toConstCase = value => value.replace(/[- ]/, '_').toUpperCase()
 export const createNoopStore = () => ({ dispatch: noop, subscribe: noop, getState: noop, replaceReducer: noop })
 
 
-export const configureSessionStateAccessor = opts => configureBrowserStateAccessor(sessionStorage, opts)
-export const configureLocalStateAccessor = opts => configureBrowserStateAccessor(localStorage, opts)
+export const configureSessionStateAccessor = opts => IS_BROWSER ? configureBrowserStateAccessor(sessionStorage, opts) : noop
+export const configureLocalStateAccessor = opts => IS_BROWSER ? configureBrowserStateAccessor(localStorage, opts) : noop
 
 /**
  * Configures an accessor object with getState and setState functions for interacting with browser storage.
@@ -24,10 +25,10 @@ export const configureLocalStateAccessor = opts => configureBrowserStateAccessor
  * @param  {Function} options.formatKey The formatter to use for storage keys.
  * @return {Function}                   Thunk taking initialState and returning initialized getState and setState functions.
  */
-export const configureBrowserStateAccessor = (browserStorage, { prefix = 'REDUX_BROWSER'
-                                                              , useJSON = false
-                                                              , formatKey = (prefix, key = 'STATE') => `${toConstCase(prefix)}_${toConstCase(key)}`
-                                                              } = {}) => {
+export const configureBrowserStateAccessor = IS_BROWSER ? (browserStorage,  { prefix = 'REDUX_BROWSER'
+                                                                            , useJSON = false
+                                                                            , formatKey = (prefix, key = 'STATE') => `${toConstCase(prefix)}_${toConstCase(key)}`
+                                                                            } = {}) => {
   assert.ok(browserStorage, 'browserStorage is required (localStorage or sessionStorage)')
   assert(typeof browserStorage === 'object', 'browserStorage must be an object')
   assert(typeof browserStorage.setItem === 'function', 'browserStorage have same setter interface as localStorage / sessionStorage')
@@ -68,7 +69,7 @@ export const configureBrowserStateAccessor = (browserStorage, { prefix = 'REDUX_
     setState(initialState)
     return { setState, getState }
   }
-}
+} : noop
 
 /** Asserts that createBrowserStore options are valid. */
 const assertBrowserStore = (reducer, initialState, createBrowserStateAccessor) => {
